@@ -1287,19 +1287,79 @@ img {
 }
 
 /* ============================================================
-   Phones only — dots to the right corner
+   Phones only
    ============================================================
-   700px rather than the 899px used above, so a tablet keeps the centred
-   dots along with everything else on this side of the site. Phones top
-   out near 480px logical and the smallest tablet starts around 744px, so
-   nothing lands in between.
-
-   On a phone the bar is tight: the wordmark takes the left, the caption
-   and the contact sheet are centred directly above, and the dots sitting
-   dead centre put a third centred thing on the same axis. In the corner
-   they leave that axis to the caption. There is more room to spare on a
-   laptop, which is why this stays a phone-only change. */
+   700px rather than the 899px used above, so a tablet keeps everything on
+   this side of the site. Phones top out near 480px logical and the
+   smallest tablet starts around 744px, so nothing lands in between. */
 @media (max-width: 700px) {
+
+  /* ── The mount ──────────────────────────────────────────────
+     The photograph stops bleeding off the edges and becomes a print on a
+     board: a hairline pink rule standing off the picture, with dark mat
+     between the two. The gap is the point — pink touching a photograph
+     tints how you read its colour, and at 45% on a site whose whole job
+     is the pictures that is a real cost for no gain.
+
+     Cost of the frame is screen: a mounted print is smaller than a bleed
+     one. --mount-gap is the knob. Raising it eats width and height, so
+     raise --photo-reserve with it or the plate will crowd the series
+     mark above it. */
+  .page-photo {
+    --mount-gap: 12px;
+    --mount-pink: rgba(255, 45, 143, 0.45);
+
+    /* Horizontal padding is new at this width — without it the rule would
+       be drawn past the edges of the screen and clipped away. */
+    padding: 126px 20px 84px;
+    /* Was 385: the ring adds --mount-gap above and below, and the caption
+       is pushed down to clear it. */
+    --photo-reserve: 415px;
+  }
+
+  #hero {
+    padding-top: 84px;
+    --photo-reserve: 268px;
+  }
+
+  /* An absolutely positioned child resolves inset: 0 against the padding
+     box, so padding on the figure would not inset the plates — the ring
+     has to be drawn outside the frame instead of inside it. ::before is
+     the figure's first child and both layers are z-index auto, so paint
+     order is DOM order and this lands behind the photograph without a
+     stacking context or a negative z-index (which would put it behind
+     the panel's own black background and vanish). */
+  .page-photo .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--mount-gap) * -1);
+    border: 1px solid var(--mount-pink);
+    background: rgba(255, 45, 143, 0.06);
+    pointer-events: none;
+  }
+
+  /* Clears the ring, which now sits --mount-gap below the picture. */
+  .page-photo .photo-frame {
+    margin-bottom: 92px;
+  }
+  .page-photo .photo-exif {
+    top: calc(100% + var(--mount-gap) + 20px);
+  }
+
+  /* The panel carries the side margin now, so these must not add their
+     own 20px on top of it and end up inset twice as far as the mount. */
+  .page-photo .photo-exif,
+  .page-photo .sheets {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* ── Dots to the right corner ───────────────────────────────
+     On a phone the bar is tight: the wordmark takes the left, and the
+     caption and contact sheet are centred directly above, so dots dead
+     centre put a third centred thing on the same axis. In the corner they
+     leave that axis to the caption. A laptop has room, which is why this
+     stays phone-only. */
   /* Only the left rail absorbs the slack, so everything after it is
      pushed into the right corner. */
   .chrome-side {
