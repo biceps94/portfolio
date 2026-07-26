@@ -753,23 +753,14 @@ img {
   pointer-events: none;
 }
 
-/* The wordmark holds the left corner, the dots hold the right. They used
-   to sit dead centre, which put them on the same axis as the EXIF caption
-   and the contact sheet directly above — three centred things stacked in
-   one column. Off that axis, the caption gets the centre to itself.
-
-   Wrappers rather than flexing the <a> itself, so the click target stays
-   the width of the text. */
+/* Equal side rails keep the dots optically centred. Wrappers rather than
+   flexing the <a> itself, so the click target stays the width of the text.
+   (Phones move the dots to the right corner — see the block at the end of
+   this file.) */
 .chrome-side {
-  flex: 0 0 auto;
+  flex: 1 0 0;
   display: flex;
   align-items: flex-end;
-}
-
-/* Only the left rail absorbs the slack, so everything after it is pushed
-   into the right corner. */
-.chrome-side:first-child {
-  flex: 1 0 0;
 }
 
 .chrome-side--right {
@@ -816,9 +807,6 @@ img {
 }
 
 #section-dots {
-  /* Reordered rather than moved in the markup: the dots stay between the
-     two rails in the DOM, so the tab sequence still runs left to right. */
-  order: 1;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -870,14 +858,6 @@ img {
 
 .dot:hover::after {
   opacity: 1;
-}
-
-/* The rail sits in the corner now, so the last dot's label would hang off
-   the right edge if it stayed centred on its dot. Anchor it instead. */
-.dot:last-child::after {
-  left: auto;
-  right: 0;
-  transform: none;
 }
 
 .progress-track {
@@ -1303,5 +1283,45 @@ img {
   }
   .sheet:not(.sheet--open) .sheet-frame[data-active] {
     opacity: 1;
+  }
+}
+
+/* ============================================================
+   Phones only — dots to the right corner
+   ============================================================
+   700px rather than the 899px used above, so a tablet keeps the centred
+   dots along with everything else on this side of the site. Phones top
+   out near 480px logical and the smallest tablet starts around 744px, so
+   nothing lands in between.
+
+   On a phone the bar is tight: the wordmark takes the left, the caption
+   and the contact sheet are centred directly above, and the dots sitting
+   dead centre put a third centred thing on the same axis. In the corner
+   they leave that axis to the caption. There is more room to spare on a
+   laptop, which is why this stays a phone-only change. */
+@media (max-width: 700px) {
+  /* Only the left rail absorbs the slack, so everything after it is
+     pushed into the right corner. */
+  .chrome-side {
+    flex: 0 0 auto;
+  }
+  .chrome-side:first-child {
+    flex: 1 0 0;
+  }
+
+  /* Reordered rather than moved in the markup: the dots stay between the
+     two rails in the DOM, so the tab sequence still runs left to right. */
+  #section-dots {
+    order: 1;
+  }
+
+  /* .scroll-hint is display:none at this width, so the dots sit hard in
+     the corner. Centred on its dot, the last label would hang off the
+     right edge — anchor it. (Touch never fires :hover, but a narrow
+     desktop window does.) */
+  .dot:last-child::after {
+    left: auto;
+    right: 0;
+    transform: none;
   }
 }
