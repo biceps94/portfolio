@@ -370,7 +370,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  width: min(520px, 84vw);
+  width: min(380px, 84vw);
 }
 
 /* Combine the centering translateX with the entrance-animation translateY
@@ -681,7 +681,7 @@ img {
 .contact-secondary {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px;
   padding: 15px 18px;
   font-family: var(--w-lab);
@@ -712,7 +712,7 @@ img {
 }
 
 .copyright {
-  margin-top: 8px;
+  margin-top: 15px;
   font-family: var(--w-lab);
   font-size: 10px;
   letter-spacing: 0.16em;
