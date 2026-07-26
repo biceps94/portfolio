@@ -211,6 +211,24 @@
     openers.forEach(function (btn, i) {
       btn.addEventListener('click', function () { lbOpen(openers, i); });
     });
+
+    // The divider doubles as the way into the archive. It has to, on a
+    // phone: the row it labels is hidden there, because ten 40px frames
+    // are ten grey smudges and the lightbox already swipes. Wiring it
+    // unconditionally costs nothing on desktop, where it reads as a
+    // shortcut to the first frame rather than as the only door.
+    const divider = sheets.querySelector('.sheet-div');
+    if (divider && openers.length) {
+      divider.setAttribute('role', 'button');
+      divider.setAttribute('tabindex', '0');
+      divider.setAttribute('aria-label', 'View the archive full size');
+      divider.addEventListener('click', function () { lbOpen(openers, 0); });
+      divider.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        e.preventDefault();
+        lbOpen(openers, 0);
+      });
+    }
   });
 
   lightbox.querySelector('.lb-close').addEventListener('click', lbClose);

@@ -1107,23 +1107,130 @@ img {
     letter-spacing: 0.11em;
   }
 
-  /* Ten frames will not sit on one line on a phone. Cap the row at five
-     frames wide so it wraps into two tidy rows rather than a ragged one,
-     and keep it clearly finer than row 1 above it. */
-  .sheet--open {
-    --sheet-frame-w: 40px;
-    --sheet-gap: 5px;
-    flex-wrap: wrap;
+  /* ══ Photo panels, portrait ═══════════════════════════════════
+     A 3:2 frame is aspect 1.5; a phone screen is about 0.46. They are
+     very nearly perpendicular, and the desktop layout tried to resolve
+     that two different ways, both bad: object-fit:cover on the series
+     panels threw away roughly 70% of the frame's width (Two Heads read
+     as two edges and a dark gap), and object-fit:contain on the hero
+     letterboxed a third of the screen top and bottom.
+
+     So stop filling the screen with the photograph. The picture becomes
+     a full-width 3:2 plate, uncropped, and the space it does not want
+     is given to the type instead of left as dead black. Everything below
+     switches the panel from "absolutely positioned over a photograph"
+     to a plain flex column, which also means it holds up on any screen
+     height rather than only the one it was tuned on. */
+  .page-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    max-width: calc(var(--sheet-frame-w) * 5 + var(--sheet-gap) * 4);
+    /* Top padding clears the series mark, which stays absolutely
+       positioned in the corner and would otherwise land on the plate.
+       Bottom padding clears the wordmark and dots. */
+    padding: 114px 0 84px;
+    /* Every vertical pixel the panel spends on something that is not the
+       photograph: padding 114 + 84, the caption's reserved 84, and the
+       contact sheet's ~100. Feeds the max-width below, which shrinks the
+       plate — keeping it 3:2 — rather than letting it overflow. Keep this
+       in step with the padding and margin above if you change them. */
+    --photo-reserve: 385px;
   }
 
-  .photo-exif {
-    width: 88vw;
+  /* The hero has no series mark and no contact sheet, only a caption, so
+     it needs far less reserved and gives the photograph the full width. */
+  #hero {
+    padding-top: 72px;
+    --photo-reserve: 240px;
   }
+
+  .page-photo .photo-frame {
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    /* dvh, not vh: mobile browser chrome shows and hides, and vh would
+       size to the tallest state and overflow whenever the bar is out. */
+    max-width: calc((100dvh - var(--photo-reserve)) * 1.5);
+    /* Reserves the caption's space — the caption itself is taken out of
+       flow below so it can hang off the bottom edge of the plate. 84px
+       is the 18px offset plus a two-line EXIF line, which is the tallest
+       the caption gets; less and it lands on the contact sheet. */
+    margin-bottom: 84px;
+  }
+
+  /* Hung directly beneath the plate at every screen size, instead of
+     being pinned to the bottom of the viewport and hoped for. */
+  .page-photo .photo-exif {
+    position: absolute;
+    top: calc(100% + 18px);
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    transform: none;
+  }
+
   .exif-data {
     font-size: 9px;
     letter-spacing: 0.1em;
+  }
+
+  /* No text sits on the photograph any more, so the scrims are darkening
+     a picture for no one's benefit. The contact panel keeps its veil —
+     that one genuinely does carry text over the image. */
+  .page-photo .photo-scrim {
+    display: none;
+  }
+
+  .page-photo .sheets {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    padding: 0 20px;
+    transform: none;
+  }
+
+  /* Row 1 can afford to be legible now that it is not competing with a
+     second row underneath it. */
+  .sheet:not(.sheet--open) {
+    --sheet-frame-w: 62px;
+    --sheet-gap: 8px;
+  }
+
+  /* Row 2 does not survive translation to a phone: ten 40px frames are
+     ten grey smudges, and no one taps a 40x27 target on purpose. The
+     archive collapses into the divider, which becomes the button that
+     opens it — and the lightbox, which already swipes, is the right
+     place to page through ten photographs on a phone anyway. */
+  .sheet--open {
+    display: none;
+  }
+
+  .sheet-div {
+    align-self: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 44px;
+    margin: 2px 0 0;
+    padding: 0 22px;
+    border: 1px solid var(--w-rule);
+    color: var(--w-ink);
+    cursor: pointer;
+  }
+  .sheet-div::before {
+    display: none;
+  }
+  .sheet-div::after {
+    content: '→';
+    flex: none;
+    width: auto;
+    height: auto;
+    background: none;
   }
 
   /* Wordmark keeps the corner; the hint yields the space it needs. */
@@ -1161,17 +1268,15 @@ img {
     width: 88vw;
   }
 
-  /* Row 1 thumbnails: taller tap target (44 px minimum).
-     The width stays at --sheet-frame-w; the extra height is
-     hidden overflow, not visible padding, so thumbnails look
-     the same but fingers can land more reliably. */
+  /* 44px minimum tap target — the extra height is hidden overflow
+     rather than visible padding, so the frame still reads as 3:2.
+     There is no hover on touch, so the unselected frames need enough
+     presence to read as photographs rather than dimmed placeholders. */
   .sheet:not(.sheet--open) .sheet-frame {
     min-height: 44px;
+    opacity: 0.72;
   }
-
-  /* Row 2 thumbnails: always show the ⤢ glyph — no hover on touch,
-     so users need the visual cue that these frames open full size. */
-  .sheet--open .sheet-frame .sheet-open-glyph {
-    opacity: 0.7;
+  .sheet:not(.sheet--open) .sheet-frame[data-active] {
+    opacity: 1;
   }
 }
