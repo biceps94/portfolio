@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slobodan Cvjeticanin — Photography</title>
+  <meta name="description" content="Photography by Slobodan Cvjeticanin — Sculptures, Portraits, and Elsewhere.">
+  <meta name="theme-color" content="#221d1a">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="bg-wash"></div>
+
+  <!-- ── Horizontal track ─────────────────────────────────────── -->
+  <div id="track">
+
+    <!-- ═══ 01 — HOMEPAGE ════════════════════════════════════
+         One picture, uncropped, with the opening colour bloom.
+         Deliberately left uncluttered — room to add to it later. -->
+    <section id="hero" class="page page-photo" data-label="Homepage">
+      <!-- The page needs one h1; this panel is pure photograph, so it lives
+           here for screen readers and search engines only. -->
+      <h1 class="sr-only">Slobodan Cvjeticanin — Photography</h1>
+
+      <figure class="photo-frame">
+        <!-- Two layers of the same file (one network fetch, served from cache).
+             The greyscale copy sits underneath; the colour copy is masked and
+             blooms outward from the centre on load. -->
+        <img class="photo-fill bloom-bw"
+             src="images/sculptures/sc2-threshold-figure.jpg"
+             alt=""
+             aria-hidden="true"
+             width="2200" height="1467">
+        <img class="photo-fill bloom-colour"
+             src="images/sculptures/sc2-threshold-figure.jpg"
+             alt="A marble figure seated against a Corinthian capital at night, holding a sword point-down."
+             width="2200" height="1467">
+
+        <div class="photo-scrim"></div>
+
+        <figcaption class="photo-exif">
+          <span class="exif-title">Threshold Figure</span>
+          <span class="exif-data">
+            Sony α7 III · FE 70–200mm F4 Macro G OSS II · 135&nbsp;mm ·
+            f/4 · 1/160&nbsp;s · ISO&nbsp;10000
+          </span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ═══ 02 — SCULPTURES (contact sheet) ══════════════════
+         Two strips, fifteen frames:
+           Row 1 (5)  — the highlights; hovering one swaps the plate behind.
+           Row 2 (10) — the archive; each opens full size in the lightbox.
+         Both strips are ordered as shot, so it reads like a real contact
+         sheet. All five plates stay stacked and crossfade; nothing
+         reloads on select. -->
+    <section id="sculptures" class="page page-photo" data-label="Sculptures">
+      <!-- The series announces itself, the way the text panels do. Without
+           this the panel's only name was a tooltip on a 7px dot. -->
+      <div class="series-mark">
+        <span class="series-num">Series 01</span>
+        <h2 class="series-name">Sculptures</h2>
+        <p class="series-line">Marble and bronze under available light.</p>
+      </div>
+
+      <figure class="photo-frame">
+        <!-- --cover: these fill the panel edge to edge, cropping the overflow. -->
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             src="images/sculptures/sc7-baroque-column.jpg"
+             alt="A baroque column crowned with a gilt cross and sunburst against a pale sky."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             src="images/sculptures/sc5-laocoon-detail.jpg"
+             alt="Laocoön, a detail of the writhing marble group at night."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate data-active
+             src="images/sculptures/sc4-two-heads.jpg"
+             alt="Two marble heads at night — a bearded elder in shadow beside a younger figure catching the light."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             src="images/sculptures/sc1-athena-gilt-helm.jpg"
+             alt="Athena in a gilt helm holding a spear, against a black ground."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             src="images/sculptures/sc16-partisan-blue.jpg"
+             alt="A bronze partisan monument group seen from below against a clear blue sky."
+             width="2200" height="1467">
+
+        <!-- --top as well: two of the five plates are bright daylight and
+             would otherwise swallow the series mark in the corner. -->
+        <div class="photo-scrim photo-scrim--top"></div>
+
+        <figcaption class="photo-exif">
+          <span class="exif-title" data-exif-title>Two Heads</span>
+          <span class="exif-data" data-exif-meta>
+            Sony α7 III · FE 70–200mm F4 Macro G OSS II · 133&nbsp;mm ·
+            f/8 · 1/200&nbsp;s · ISO&nbsp;20000
+          </span>
+        </figcaption>
+      </figure>
+
+      <div class="sheets">
+
+      <!-- Row 1 — selecting a plate swaps the background behind it. -->
+      <div class="sheet" role="tablist" aria-label="Sculptures — contact sheet">
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Baroque Column"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 99 mm · f/8 · 1/200 s · ISO 200"
+                aria-label="Baroque Column">
+          <img src="images/sculptures/thumbs/sc7-baroque-column.jpg" alt="" decoding="async">
+          <span class="sheet-num">01</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Laocoön, Detail"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 130 mm · f/8 · 1/200 s · ISO 20000"
+                aria-label="Laocoön, Detail">
+          <img src="images/sculptures/thumbs/sc5-laocoon-detail.jpg" alt="" decoding="async">
+          <span class="sheet-num">02</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab" data-active aria-selected="true"
+                data-title="Two Heads"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 133 mm · f/8 · 1/200 s · ISO 20000"
+                aria-label="Two Heads">
+          <img src="images/sculptures/thumbs/sc4-two-heads.jpg" alt="" decoding="async">
+          <span class="sheet-num">03</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Athena, Gilt Helm"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 200 mm · f/4 · 1/80 s · ISO 12800"
+                aria-label="Athena, Gilt Helm">
+          <img src="images/sculptures/thumbs/sc1-athena-gilt-helm.jpg" alt="" decoding="async">
+          <span class="sheet-num">04</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Partisans, Blue Sky"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/2 · 1/500 s · ISO 100 · 22 Mar 2026"
+                aria-label="Partisans, Blue Sky">
+          <img src="images/sculptures/thumbs/sc16-partisan-blue.jpg" alt="" decoding="async">
+          <span class="sheet-num">05</span>
+        </button>
+      </div>
+
+      <!-- The divider is the whole point: without a stated difference, a
+           visitor hovers row 2 expecting row 1's behaviour and gets nothing. -->
+      <div class="sheet-div"><span>View full size — 10</span></div>
+
+      <!-- Row 2 — the archive. Denser and dimmer than row 1 on purpose:
+           this is an index to click, not a selector to hover. -->
+      <div class="sheet sheet--open" aria-label="Sculptures — open full size">
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc11-madonna-stars.jpg"
+                data-title="Madonna, Star Crown"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 135 mm · f/8 · 1/200 s · ISO 640"
+                data-alt="A stone Madonna wearing a golden star crown, a classical column behind her."
+                aria-label="Open Madonna, Star Crown full size">
+          <img src="images/sculptures/thumbs/sc11-madonna-stars.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc10-cumil.jpg"
+                data-title="Cumil"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 133 mm · f/8 · 1/200 s · ISO 500"
+                data-alt="Cumil, the bronze figure peering up from a Bratislava manhole."
+                aria-label="Open Cumil full size">
+          <img src="images/sculptures/thumbs/sc10-cumil.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc12-neptune-fountain.jpg"
+                data-title="Neptune Fountain"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 200 mm · f/8 · 1/200 s · ISO 160"
+                data-alt="Neptune fountain group in black and white, classical statuary."
+                aria-label="Open Neptune Fountain full size">
+          <img src="images/sculptures/thumbs/sc12-neptune-fountain.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc9-angel-marble.jpg"
+                data-title="Angel, Detail"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 135 mm · f/4 · 1/250 s · ISO 8000"
+                data-alt="A white marble angel or cherub in close detail, museum interior."
+                aria-label="Open Angel, Detail full size">
+          <img src="images/sculptures/thumbs/sc9-angel-marble.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc6-athena-parliment.jpg"
+                data-title="Athena, Parliament"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 131 mm · f/8 · 1/200 s · ISO 12800"
+                data-alt="Pallas Athene before the Vienna Parliament at night, spear raised, the Austrian flag above the pediment."
+                aria-label="Open Athena, Parliament full size">
+          <img src="images/sculptures/thumbs/sc6-athena-parliment.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc8-justice-blindfolded.jpg"
+                data-title="Justitia"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 200 mm · f/4 · 1/250 s · ISO 10000"
+                data-alt="Blindfolded Justitia raising a sword before the Parliament building at night."
+                aria-label="Open Justitia full size">
+          <img src="images/sculptures/thumbs/sc8-justice-blindfolded.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc13-bronze-reach.jpg"
+                data-title="Bronze Figure"
+                data-meta="Sony α7 III · FE 55mm F1.8 ZA · 55 mm · f/1.8 · 1/2000 s · ISO 100"
+                data-alt="A bronze figure in black and white, seen from below with arms outstretched."
+                aria-label="Open Bronze Figure full size">
+          <img src="images/sculptures/thumbs/sc13-bronze-reach.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc15-partisan-frontal.jpg"
+                data-title="Partisans, Frontal"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/2 · 1/320 s · ISO 100 · 22 Mar 2026"
+                data-alt="Bronze partisan monument group, frontal view, trees in the background."
+                aria-label="Open Partisans, Frontal full size">
+          <img src="images/sculptures/thumbs/sc15-partisan-frontal.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc17-marble-female.jpg"
+                data-title="Marble Figure I"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/100 s · ISO 1600 · 17 Apr 2026"
+                data-alt="White marble female figure with one arm raised, museum interior, portrait orientation."
+                aria-label="Open Marble Figure I full size">
+          <img src="images/sculptures/thumbs/sc17-marble-female.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/sculptures/sc18-marble-male.jpg"
+                data-title="Marble Figure II"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/100 s · ISO 1600 · 17 Apr 2026"
+                data-alt="White marble male figure gazing upward, museum interior, portrait orientation."
+                aria-label="Open Marble Figure II full size">
+          <img src="images/sculptures/thumbs/sc18-marble-male.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+      </div>
+
+      </div><!-- /sheets -->
+    </section>
+
+    <!-- ═══ 03 — PORTRAITS (contact sheet) ═══════════════════
+         Same shape as Sculptures. Two strips, fifteen frames.
+         Row 1 (5)  — the highlights; hovering one swaps the plate behind.
+         Row 2 (10) — the archive; clicking one opens it full size.
+         The two sets are disjoint: nothing in row 1 is in the lightbox. -->
+    <section id="portraits" class="page page-photo" data-label="Portraits">
+      <div class="series-mark">
+        <span class="series-num">Series 02</span>
+        <h2 class="series-name">Portraits</h2>
+        <p class="series-line">Available light, one lens, no direction beyond keep breathing.</p>
+      </div>
+
+      <figure class="photo-frame">
+        <!-- Plate order must match the row 1 button order below — the script
+             pairs them by position, not by filename. -->
+         <img class="photo-fill photo-fill--cover plate" data-plate data-active
+             data-src="images/portraits/pt1-hands-held.jpg"
+             alt="A close black and white portrait of a bearded man against a blown-out window, hands steepled against his mouth."
+             width="2200" height="1466">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/portraits/pt2-maple.jpg"
+             alt="A woman in a grey wool coat and glasses holding a yellow maple leaf out towards the camera, laughing, autumn woodland behind her."
+             width="2200" height="1467">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/portraits/pt3-studio-cat.jpg"
+             alt="A tabby and white cat sitting upright against a plain grey wall, looking straight into the lens."
+             width="2200" height="1466">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/portraits/pt4-nikola-terrace.jpg"
+             alt="A man on a terrace in black and white, half-smiling, looking off past the camera into bright afternoon light."
+             width="2200" height="1467">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/portraits/pt5-chin-in-hand.jpg"
+             alt="A close black and white portrait of a young woman laughing, chin resting on her hand, hoop earring catching the light."
+             width="2200" height="1467">
+
+        <div class="photo-scrim photo-scrim--top"></div>
+
+        <figcaption class="photo-exif">
+          <span class="exif-title" data-exif-title>Hands, Held</span>
+          <span class="exif-data" data-exif-meta>
+            Sony α7 III · FE 55mm F1.8 ZA · 55&nbsp;mm ·
+            f/1.8 · 1/200&nbsp;s · ISO&nbsp;100
+          </span>
+        </figcaption>
+      </figure>
+
+      <div class="sheets">
+
+      <!-- Row 1 — the highlights, in the order the files were numbered. -->
+      <div class="sheet" role="tablist" aria-label="Portraits — contact sheet">
+        <button class="sheet-frame" type="button" role="tab" data-active aria-selected="true"
+                data-title="Hands, Held"
+                data-meta="Sony α7 III · FE 55mm F1.8 ZA · 55 mm · f/1.8 · 1/200 s · ISO 100"
+                aria-label="Hands, Held">
+          <img src="images/portraits/thumbs/pt1-hands-held.jpg" alt="" decoding="async">
+          <span class="sheet-num">01</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Maple"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 135 mm · f/4 · 1/200 s · ISO 400"
+                aria-label="Maple">
+          <img src="images/portraits/thumbs/pt2-maple.jpg" alt="" decoding="async">
+          <span class="sheet-num">02</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Studio Cat"
+                data-meta="Sony α7 III · FE 55mm F1.8 ZA · 55 mm · f/1.8 · 1/160 s · ISO 800"
+                aria-label="Studio Cat">
+          <img src="images/portraits/thumbs/pt3-studio-cat.jpg" alt="" decoding="async">
+          <span class="sheet-num">03</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Nikola, Terrace"
+                data-meta="Sony α7 III · FE 35mm F2.8 ZA · 35 mm · f/2.8 · 1/320 s · ISO 100"
+                aria-label="Nikola, Terrace">
+          <img src="images/portraits/thumbs/pt4-nikola-terrace.jpg" alt="" decoding="async">
+          <span class="sheet-num">04</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Chin in Hand"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 133 mm · f/4 · 1/250 s · ISO 500"
+                aria-label="Chin in Hand">
+          <img src="images/portraits/thumbs/pt5-chin-in-hand.jpg" alt="" decoding="async">
+          <span class="sheet-num">05</span>
+        </button>
+      </div>
+
+      <!-- The divider is the whole point: without a stated difference, a
+           visitor hovers row 2 expecting row 1's behaviour and gets nothing. -->
+      <div class="sheet-div"><span>View full size — 10</span></div>
+
+      <!-- Row 2 — the archive. Denser and dimmer than row 1 on purpose:
+           this is an index to click, not a selector to hover. -->
+      <div class="sheet sheet--open" aria-label="Portraits — open full size">
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt6-late-call.jpg"
+                data-title="Late Call"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/1.8 · 1/100 s · ISO 2000 · 15 Feb 2026"
+                data-alt="A bearded man on the phone at night, lit warm from one side, street lights thrown out of focus behind him."
+                aria-label="Open Late Call full size">
+          <img src="images/portraits/thumbs/pt6-late-call.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt7-red-lenses.jpg"
+                data-title="Red Lenses"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 200 mm · f/4 · 1/50 s · ISO 100"
+                data-alt="An older woman with long blonde hair in oversized red-tinted sunglasses and red lipstick, green plants behind her."
+                aria-label="Open Red Lenses full size">
+          <img src="images/portraits/thumbs/pt7-red-lenses.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt8-bench-pug.jpg"
+                data-title="Bench, With Pug"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 100 mm · f/4 · 1/250 s · ISO 250"
+                data-alt="A woman in a dark coat on a park bench in black and white, laughing with her cheek against a pug held in her lap."
+                aria-label="Open Bench, With Pug full size">
+          <img src="images/portraits/thumbs/pt8-bench-pug.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt9-gloriette.jpg"
+                data-title="Gloriette"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 135 mm · f/8 · 1/200 s · ISO 50"
+                data-alt="A man with a backpack turning back towards the camera in black and white, a crowd walking away up the hill towards the Gloriette at Schönbrunn."
+                aria-label="Open Gloriette full size">
+          <img src="images/portraits/thumbs/pt9-gloriette.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt10-ginger.jpg"
+                data-title="Ginger"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 70 mm · f/4 · 1/100 s · ISO 12800"
+                data-alt="A ginger and white cat sitting folded on a carpet, front paws tucked, looking down past the lens."
+                aria-label="Open Ginger full size">
+          <img src="images/portraits/thumbs/pt10-ginger.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt11-night-street.jpg"
+                data-title="Night Street"
+                data-meta="Sony α7 III · FE 35mm F2.8 ZA · 35 mm · f/2.8 · 1/160 s · ISO 12800"
+                data-alt="The back of a man's head in near silhouette against a night street, shop and car lights strung out of focus down the road."
+                aria-label="Open Night Street full size">
+          <img src="images/portraits/thumbs/pt11-night-street.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt12-kalemegdan-gate.jpg"
+                data-title="Kalemegdan Gate"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/1.8 · 1/320 s · ISO 100 · 01 Mar 2026"
+                data-alt="A man standing in a fortress archway at dusk, silhouetted against the rivers and the far bank beyond."
+                aria-label="Open Kalemegdan Gate full size">
+          <img src="images/portraits/thumbs/pt12-kalemegdan-gate.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt13-arms-wide.jpg"
+                data-title="Arms Wide"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 72 mm · f/4 · 1/160 s · ISO 1000"
+                data-alt="A man seen from behind in black and white, arms thrown wide before a waterfall running down a rock face."
+                aria-label="Open Arms Wide full size">
+          <img src="images/portraits/thumbs/pt13-arms-wide.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt14-beanie.jpg"
+                data-title="Beanie"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 135 mm · f/4 · 1/125 s · ISO 200"
+                data-alt="A bearded man in a hooded winter coat and a knitted monster beanie, grinning at the camera in black and white."
+                aria-label="Open Beanie full size">
+          <img src="images/portraits/thumbs/pt14-beanie.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/portraits/pt15-ginger-close.jpg"
+                data-title="Ginger, Close"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 83 mm · f/4 · 1/160 s · ISO 5000"
+                data-alt="A ginger and white cat filling the frame, eyes half closed, warm light across its face."
+                aria-label="Open Ginger, Close full size">
+          <img src="images/portraits/thumbs/pt15-ginger-close.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+      </div>
+
+      </div><!-- /sheets -->
+    </section>
+
+    <!-- ═══ 04 — ELSEWHERE (contact sheet) ═══════════════════
+         Same shape as Sculptures and Portraits. Two strips, fifteen frames.
+         Row 1 (5)  — the highlights; hovering one swaps the plate behind.
+         Row 2 (10) — the archive; clicking one opens it full size.
+         The two sets are disjoint: nothing in row 1 is in the lightbox. -->
+    <section id="elsewhere" class="page page-photo" data-label="Elsewhere">
+      <div class="series-mark">
+        <span class="series-num">Series 03</span>
+        <h2 class="series-name">Elsewhere</h2>
+        <p class="series-line">Somewhere that wasn't home, and whatever the light was doing there.</p>
+      </div>
+
+      <figure class="photo-frame">
+        <!-- Plate order must match the row 1 button order below — the script
+             pairs them by position, not by filename. -->
+         <img class="photo-fill photo-fill--cover plate" data-plate data-active
+             data-src="images/elsewhere/el1-spire-in-cloud.jpg"
+             alt="A church spire in black and white seen from below, leaning into a sky of heavy overcast, its clock face and stone finials picked out against the cloud."
+             width="2200" height="1467">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/elsewhere/el2-three-lamps.jpg"
+             alt="Three white street lamps burning at night, a floodlit church tower rising gold and out of focus behind them."
+             width="2200" height="1467">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/elsewhere/el3-blocks-at-night.jpg"
+             alt="A city from above at night on a long exposure, tower blocks lit window by window and a boulevard of traffic running out to the far edge."
+             width="2200" height="1467">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/elsewhere/el4-facade-genoa.jpg"
+             alt="A grand stone palace front raking away against a deep blue sky, Italian and European flags hanging from its corner."
+             width="2200" height="1467">
+         <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/elsewhere/el5-shore-morning.jpg"
+             alt="A wide lake at first light in black and white, one figure standing alone on the wet shore, mist lying along the far bank."
+             width="2200" height="1467">
+
+        <div class="photo-scrim photo-scrim--top"></div>
+
+        <figcaption class="photo-exif">
+          <span class="exif-title" data-exif-title>Spire in Cloud</span>
+          <span class="exif-data" data-exif-meta>
+            Sony α7 V · FE 55mm F1.8 ZA · 55&nbsp;mm ·
+            f/8 · 1/1000&nbsp;s · ISO&nbsp;200 · 14 Feb 2026
+          </span>
+        </figcaption>
+      </figure>
+
+      <div class="sheets">
+
+      <!-- Row 1 — the highlights, in the order the files were numbered. -->
+      <div class="sheet" role="tablist" aria-label="Elsewhere — contact sheet">
+        <button class="sheet-frame" type="button" role="tab" data-active aria-selected="true"
+                data-title="Spire in Cloud"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/1000 s · ISO 200 · 14 Feb 2026"
+                aria-label="Spire in Cloud">
+          <img src="images/elsewhere/thumbs/el1-spire-in-cloud.jpg" alt="" decoding="async">
+          <span class="sheet-num">01</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Three Lamps"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/4 · 1/250 s · ISO 8000 · 14 Feb 2026"
+                aria-label="Three Lamps">
+          <img src="images/elsewhere/thumbs/el2-three-lamps.jpg" alt="" decoding="async">
+          <span class="sheet-num">02</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Blocks at Night"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 70 mm · f/10 · 15 s · ISO 100 · 28 Mar 2026"
+                aria-label="Blocks at Night">
+          <img src="images/elsewhere/thumbs/el3-blocks-at-night.jpg" alt="" decoding="async">
+          <span class="sheet-num">03</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Facade, Genoa"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/500 s · ISO 100 · 18 Apr 2026"
+                aria-label="Facade, Genoa">
+          <img src="images/elsewhere/thumbs/el4-facade-genoa.jpg" alt="" decoding="async">
+          <span class="sheet-num">04</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Shore, Morning"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/5 · 1/2000 s · ISO 100 · 14 Feb 2026"
+                aria-label="Shore, Morning">
+          <img src="images/elsewhere/thumbs/el5-shore-morning.jpg" alt="" decoding="async">
+          <span class="sheet-num">05</span>
+        </button>
+      </div>
+
+      <!-- The divider is the whole point: without a stated difference, a
+           visitor hovers row 2 expecting row 1's behaviour and gets nothing. -->
+      <div class="sheet-div"><span>View full size — 10</span></div>
+
+      <!-- Row 2 — the archive. Denser and dimmer than row 1 on purpose:
+           this is an index to click, not a selector to hover. -->
+      <div class="sheet sheet--open" aria-label="Elsewhere — open full size">
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el6-down-the-line.jpg"
+                data-title="Down the Line"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/1000 s · ISO 200 · 14 Feb 2026"
+                data-alt="A near-dark street at dusk in black and white, photographed from the ground along a single line of paving running away between two rows of old buildings."
+                aria-label="Open Down the Line full size">
+          <img src="images/elsewhere/thumbs/el6-down-the-line.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el7-contrails.jpg"
+                data-title="Contrails"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/4 · 1/2000 s · ISO 100 · 01 Mar 2026"
+                data-alt="A low sun going down over a river city, the whole sky crossed and re-crossed with vapour trails lit orange."
+                aria-label="Open Contrails full size">
+          <img src="images/elsewhere/thumbs/el7-contrails.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el8-monaco-harbour.jpg"
+                data-title="Monaco Harbour"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/400 s · ISO 125 · 15 Apr 2026"
+                data-alt="A Mediterranean harbour packed rail to rail with white yachts, apartment blocks terraced up the hillside behind and mountains beyond."
+                aria-label="Open Monaco Harbour full size">
+          <img src="images/elsewhere/thumbs/el8-monaco-harbour.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el9-baie-des-anges.jpg"
+                data-title="Baie des Anges"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/500 s · ISO 100 · 16 Apr 2026"
+                data-alt="A long curving bay seen from above, pale shingle beach and a palm-lined promenade running along beneath terracotta rooftops."
+                aria-label="Open Baie des Anges full size">
+          <img src="images/elsewhere/thumbs/el9-baie-des-anges.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el10-the-wake.jpg"
+                data-title="The Wake"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/160 s · ISO 100 · 16 Apr 2026"
+                data-alt="Deep blue open water filling the whole frame, one small boat drawing a long white arc across it."
+                aria-label="Open The Wake full size">
+          <img src="images/elsewhere/thumbs/el10-the-wake.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el11-the-jetty.jpg"
+                data-title="The Jetty"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/250 s · ISO 100 · 16 Apr 2026"
+                data-alt="A stone breakwater curving out into clear blue water towards a small red lighthouse, a wooded headland and villas behind it."
+                aria-label="Open The Jetty full size">
+          <img src="images/elsewhere/thumbs/el11-the-jetty.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el12-horizon-line.jpg"
+                data-title="Horizon Line"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/800 s · ISO 125 · 17 Apr 2026"
+                data-alt="Open sea under a pale washed sky, a single ship sitting alone near the horizon."
+                aria-label="Open Horizon Line full size">
+          <img src="images/elsewhere/thumbs/el12-horizon-line.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el13-san-lorenzo.jpg"
+                data-title="San Lorenzo"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/100 s · ISO 100 · 18 Apr 2026"
+                data-alt="The striped marble front of a Genoese cathedral in black and white, two great carved arches above a crowd on the steps."
+                aria-label="Open San Lorenzo full size">
+          <img src="images/elsewhere/thumbs/el13-san-lorenzo.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el14-bunting.jpg"
+                data-title="Bunting"
+                data-meta="Sony α7 V · FE 55mm F1.8 ZA · 55 mm · f/8 · 1/100 s · ISO 100 · 18 Apr 2026"
+                data-alt="A crowded narrow street strung overhead with Italian flags, a domed church closing off the far end of it."
+                aria-label="Open Bunting full size">
+          <img src="images/elsewhere/thumbs/el14-bunting.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+        <button class="sheet-frame" type="button"
+                data-src="images/elsewhere/el15-gorge.jpg"
+                data-title="Gorge, Coming Weather"
+                data-meta="Sony α7 III · FE 70–200mm F4 Macro G OSS II · 70 mm · f/5 · 1/500 s · ISO 100"
+                data-alt="Dark wooded ridges falling away into a gorge in black and white, a heavy bank of cloud filling the sky above them."
+                aria-label="Open Gorge, Coming Weather full size">
+          <img src="images/elsewhere/thumbs/el15-gorge.jpg" alt="" decoding="async">
+          <span class="sheet-open-glyph" aria-hidden="true">⤢</span>
+        </button>
+      </div>
+
+      </div><!-- /sheets -->
+    </section>
+
+    <!-- Nature (Series 04) and Abstract (Series 05) were placeholder panels
+         and came out on 2026-07-26 — "we'll add those later". Their empty
+         image folders are still in images/, and the panel markup is the same
+         shape as the three above it, so putting either back is a section and
+         a series number, nothing more. -->
+
+    <!-- ═══ 05 — CONTACT ═════════════════════════════════════ -->
+    <!-- The only panel carrying a photograph AND laid-out text, so it keeps
+         the ordinary .page padding and takes the picture as a full-bleed
+         layer behind instead of using .page-photo (which zeroes padding).
+         .page--photo-bg lifts .page-inner above the frame. -->
+    <section id="contact" class="page page--photo-bg" data-label="Contact">
+
+      <figure class="photo-frame">
+         <img class="photo-fill photo-fill--cover"
+             data-src="images/contact/ct1-last-light.jpg"
+             alt="A single bare incandescent bulb hanging from a rope in a dark room, its filament burning warm orange against the black."
+             width="2200" height="1467">
+        <!-- The bulb lands almost dead centre, which is exactly where the
+             text block sits, so this scrim is a whole-frame veil rather than
+             the bottom gradient the series panels use. -->
+        <div class="photo-scrim photo-scrim--veil"></div>
+      </figure>
+
+      <div class="page-inner narrow">
+        <h2 class="display-lg">End of<br>the roll.</h2>
+        <div class="contact-links">
+          <a class="contact-primary" href="mailto:s.cvjeticanin94@gmail.com">
+            s.cvjeticanin94@gmail.com <span aria-hidden="true">→</span>
+          </a>
+          <a class="contact-secondary" href="https://instagram.com/__grof" target="_blank" rel="noreferrer">
+            Instagram — @__grof <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <span class="copyright">© 2026 Slobodan Cvjeticanin · Belgrade</span>
+      </div>
+    </section>
+
+  </div><!-- /track -->
+
+  <!-- ── Bottom chrome ────────────────────────────────────────── -->
+  <div id="chrome">
+    <div class="chrome-side">
+      <a id="logo-link" href="#hero">
+        <span class="wordmark-given">Slobodan</span>
+        <span class="wordmark-family">Cvjeticanin</span>
+      </a>
+    </div>
+
+    <div id="section-dots" role="tablist" aria-label="Sections"></div>
+
+    <div class="chrome-side chrome-side--right">
+      <span class="scroll-hint">Scroll →</span>
+    </div>
+  </div>
+  <div class="progress-track"><div id="progress-bar"></div></div>
+
+  <!-- ── Lightbox ─────────────────────────────────────────────── -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true"
+       aria-label="Photograph, full size">
+    <span class="lb-count" id="lb-count" aria-hidden="true"></span>
+    <button class="lb-close" type="button" aria-label="Close">✕</button>
+    <button class="lb-nav lb-prev" type="button" aria-label="Previous photograph">←</button>
+    <button class="lb-nav lb-next" type="button" aria-label="Next photograph">→</button>
+    <figure class="lb-figure">
+      <img id="lb-img" src="" alt="">
+      <figcaption class="lb-caption">
+        <span class="exif-title" id="lb-title"></span>
+        <span class="exif-data" id="lb-meta"></span>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- ── Custom right-click menu ──────────────────────────────── -->
+  <div id="ctx-menu" role="menu" aria-hidden="true">
+    <button class="ctx-item" role="menuitem" data-action="refresh">
+      Refresh <span class="ctx-key">R</span>
+    </button>
+    <button class="ctx-item" role="menuitem" data-action="start">
+      Back to start <span class="ctx-key">↖</span>
+    </button>
+    <div class="ctx-sep"></div>
+    <button class="ctx-item" role="menuitem" data-action="copy-email">
+      Copy email <span class="ctx-key">✉</span>
+    </button>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
