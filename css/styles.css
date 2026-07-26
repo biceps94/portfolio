@@ -718,6 +718,7 @@ img {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--w-mute);
+  text-align: center;
 }
 
 /* ============================================================
