@@ -1,5 +1,5 @@
-/* ############################################################
-   TWEAK THESE — the two knobs you'll actually want to move
+﻿/* ############################################################
+   TWEAK THESE â€” the two knobs you'll actually want to move
    ############################################################ */
 :root {
   /* Hero caption ("THRESHOLD FIGURE" + EXIF): distance from the bottom
@@ -9,12 +9,12 @@
      Below ~46px it starts to crowd the navigation dots. */
   --exif-bottom: 55px;
 
-  /* Wordmark size. clamp(min, scales-with-width, max) — the middle value
+  /* Wordmark size. clamp(min, scales-with-width, max) â€” the middle value
      is what it uses on a normal desktop; the outer two stop it getting
      silly on phones or huge monitors. */
   --wordmark-size: clamp(21px, 2.3vw, 38px);
 
-  /* Hero colour bloom: greyscale → colour, spreading from the centre.
+  /* Hero colour bloom: greyscale â†’ colour, spreading from the centre.
      Longer duration = slower, more cinematic. Delay is the beat of
      black-and-white you see before it starts. */
   --bloom-duration: 5s;
@@ -30,7 +30,7 @@
 }
 
 /* ============================================================
-   Design tokens — single theme
+   Design tokens â€” single theme
    ============================================================ */
 :root {
   --w-bg: #221d1a;
@@ -39,7 +39,7 @@
   --w-mute: #a2907c;
   --w-accent: #c79a5b;
   --w-onaccent: #1a1614;
-  --w-pink: #ff2d8f; /* bubblegum / riso pink — the family name */
+  --w-pink: #ff2d8f; /* bubblegum / riso pink â€” the family name */
 
   --w-disp: 'EB Garamond', Georgia, serif;
   --w-lab: 'EB Garamond', Georgia, serif;
@@ -53,7 +53,7 @@
 }
 
 /* ============================================================
-   Reset & base — page itself never scrolls; #track does
+   Reset & base â€” page itself never scrolls; #track does
    ============================================================ */
 *,
 *::before,
@@ -115,7 +115,7 @@ img {
 }
 
 /* ============================================================
-   Horizontal track — one viewport per panel, snapped
+   Horizontal track â€” one viewport per panel, snapped
    ============================================================ */
 #track {
   position: relative;
@@ -167,7 +167,7 @@ img {
   text-align: center;
 }
 
-/* Entrance reveal — set by IntersectionObserver */
+/* Entrance reveal â€” set by IntersectionObserver */
 .page-inner > * {
   opacity: 0;
   transform: translateY(22px);
@@ -194,7 +194,7 @@ img {
 }
 
 /* ============================================================
-   Photo panels — full-bleed photograph, EXIF centred at the bottom
+   Photo panels â€” full-bleed photograph, EXIF centred at the bottom
    Shared by the homepage and any series panel that is pure image.
    ============================================================ */
 /* Black ground, not the site brown: these photographs sit on black, so the
@@ -210,7 +210,7 @@ img {
   margin: 0;
 }
 
-/* Default is contain — the whole frame stays visible and uncropped at
+/* Default is contain â€” the whole frame stays visible and uncropped at
    every viewport shape. */
 .photo-fill {
   position: absolute;
@@ -222,16 +222,16 @@ img {
 }
 
 /* Opt-in edge-to-edge. Fills the panel with no letterbox, at the cost of
-   cropping whichever axis overflows — on a 16:9 screen a 3:2 frame loses
+   cropping whichever axis overflows â€” on a 16:9 screen a 3:2 frame loses
    roughly 16% off the top and bottom. Use only where the composition
    survives it. */
 .photo-fill--cover {
   object-fit: cover;
 }
 
-/* ── Colour bloom (homepage only) ──────────────────────────────
+/* â”€â”€ Colour bloom (homepage only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    The greyscale copy is the base layer. The colour copy above it is
-   masked by a soft-edged circle whose size animates 0 → 320%, so colour
+   masked by a soft-edged circle whose size animates 0 â†’ 320%, so colour
    spreads outward from the centre of the frame.
    Tune: --bloom-duration / --bloom-delay at the top of this file. */
 .bloom-bw {
@@ -262,7 +262,7 @@ img {
   }
 }
 
-/* No animation for anyone who asked not to have one — show full colour. */
+/* No animation for anyone who asked not to have one â€” show full colour. */
 @media (prefers-reduced-motion: reduce) {
   .bloom-colour {
     animation: none;
@@ -275,7 +275,7 @@ img {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  /* Bottom only — there is no longer a top nav to protect, and darkening
+  /* Bottom only â€” there is no longer a top nav to protect, and darkening
      the top would needlessly alter the photograph. */
   background: linear-gradient(
     to bottom,
@@ -291,10 +291,10 @@ img {
    The top half is a corner-anchored ellipse rather than a full-width
    band: it sits under the series mark only, so the sky across the rest
    of the frame is left alone. Its centre is pushed off-canvas so what
-   shows on the page is the gradient's smooth mid-section — anchored at
+   shows on the page is the gradient's smooth mid-section â€” anchored at
    0% 0% the dense core landed in frame and read as a smudge against a
    clear sky. The bottom is deepened because the strips
-   and their hairlines need a consistent dark ground to read against —
+   and their hairlines need a consistent dark ground to read against â€”
    at 0.16 alpha the dividers disappeared entirely over daylight. */
 .photo-scrim--top {
   background:
@@ -336,7 +336,7 @@ img {
     );
 }
 
-/* ── A photograph behind a text panel ─────────────────────────
+/* â”€â”€ A photograph behind a text panel â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    .page-photo is for panels that are nothing but a picture; it strips the
    padding. Contact needs its padding and its layout, so it takes the
    photograph as a layer instead. Two things are required: a black ground
@@ -390,7 +390,7 @@ img {
 .page--photo-bg .page-inner > .contact-foot {
   transform: translateX(-50%) translateY(22px);
 }
-/* .page--photo-bg.is-visible, not .page.is-visible .page--photo-bg —
+/* .page--photo-bg.is-visible, not .page.is-visible .page--photo-bg â€”
    #contact carries both classes on the same element, so the descendant
    form could never match and the buttons sat 22px low, never animating. */
 .page--photo-bg.is-visible .page-inner > .contact-foot {
@@ -398,15 +398,15 @@ img {
 }
 
 /* The display type is big enough to carry itself. The small uppercase
-   lines are not — at phone widths the crop walks the bulb underneath
+   lines are not â€” at phone widths the crop walks the bulb underneath
    them, so they get the same shadow the series marks use. */
 .page--photo-bg .copyright,
 .page--photo-bg .contact-secondary {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
 }
 
-/* ── Series mark ──────────────────────────────────────────────
-   Photo panels had no visible title — the section name existed only in
+/* â”€â”€ Series mark â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+   Photo panels had no visible title â€” the section name existed only in
    a dot tooltip. This gives them the same announcement the text panels
    get, without taking the picture's centre. */
 .series-mark {
@@ -458,7 +458,7 @@ img {
   color: rgba(255, 255, 255, 0.82);
 }
 
-/* ── Contact sheet ────────────────────────────────────────────
+/* â”€â”€ Contact sheet â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
    All plates stay in the DOM stacked on top of each other and cross-
    fade; selecting one never triggers a fetch or a decode flash. */
 .plate {
@@ -488,7 +488,7 @@ img {
   gap: var(--sheet-gap);
 }
 
-/* Row 2 is an index, not a selector. Denser, dimmer, and — critically —
+/* Row 2 is an index, not a selector. Denser, dimmer, and â€” critically â€”
    it does not lift on hover: the lift is row 1's language for "this one
    is now showing behind". Here hover only means "clickable". */
 .sheet--open {
@@ -737,7 +737,7 @@ img {
 }
 
 /* ============================================================
-   Bottom chrome — hint, dots, label, progress
+   Bottom chrome â€” hint, dots, label, progress
    ============================================================ */
 #chrome {
   position: fixed;
@@ -799,7 +799,7 @@ img {
   transition: opacity 0.4s ease;
 }
 
-/* Nothing further to scroll to on the last panel — don't claim otherwise. */
+/* Nothing further to scroll to on the last panel â€” don't claim otherwise. */
 #chrome.at-end .scroll-hint {
   opacity: 0;
 }
@@ -835,7 +835,7 @@ img {
   border-color: var(--w-accent);
 }
 
-/* The section name now lives here instead of in a permanent corner label —
+/* The section name now lives here instead of in a permanent corner label â€”
    it appears on hover, where it is actually wanted. */
 .dot::after {
   content: attr(data-label);
@@ -1086,7 +1086,7 @@ img {
    Small screens
    ============================================================ */
 @media (max-width: 899px) {
-  /* Caption sits a little higher on phones — the dots and wordmark are
+  /* Caption sits a little higher on phones â€” the dots and wordmark are
      proportionally closer to it. Override, don't edit the root value. */
   :root {
     --exif-bottom: 104px;
@@ -1110,7 +1110,7 @@ img {
     letter-spacing: 0.11em;
   }
 
-  /* ══ Photo panels, portrait ═══════════════════════════════════
+  /* â•â• Photo panels, portrait â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
      A 3:2 frame is aspect 1.5; a phone screen is about 0.46. They are
      very nearly perpendicular, and the desktop layout tried to resolve
      that two different ways, both bad: object-fit:cover on the series
@@ -1136,7 +1136,7 @@ img {
     /* Every vertical pixel the panel spends on something that is not the
        photograph: padding 114 + 84, the caption's reserved 84, and the
        contact sheet's ~100. Feeds the max-width below, which shrinks the
-       plate — keeping it 3:2 — rather than letting it overflow. Keep this
+       plate â€” keeping it 3:2 â€” rather than letting it overflow. Keep this
        in step with the padding and margin above if you change them. */
     --photo-reserve: 385px;
   }
@@ -1157,7 +1157,7 @@ img {
     /* dvh, not vh: mobile browser chrome shows and hides, and vh would
        size to the tallest state and overflow whenever the bar is out. */
     max-width: calc((100dvh - var(--photo-reserve)) * 1.5);
-    /* Reserves the caption's space — the caption itself is taken out of
+    /* Reserves the caption's space â€” the caption itself is taken out of
        flow below so it can hang off the bottom edge of the plate. 84px
        is the 18px offset plus a two-line EXIF line, which is the tallest
        the caption gets; less and it lands on the contact sheet. */
@@ -1183,7 +1183,7 @@ img {
   }
 
   /* No text sits on the photograph any more, so the scrims are darkening
-     a picture for no one's benefit. The contact panel keeps its veil —
+     a picture for no one's benefit. The contact panel keeps its veil â€”
      that one genuinely does carry text over the image. */
   .page-photo .photo-scrim {
     display: none;
@@ -1208,7 +1208,7 @@ img {
   /* Row 2 does not survive translation to a phone: ten 40px frames are
      ten grey smudges, and no one taps a 40x27 target on purpose. The
      archive collapses into the divider, which becomes the button that
-     opens it — and the lightbox, which already swipes, is the right
+     opens it â€” and the lightbox, which already swipes, is the right
      place to page through ten photographs on a phone anyway. */
   .sheet--open {
     display: none;
@@ -1229,7 +1229,7 @@ img {
     display: none;
   }
   .sheet-div::after {
-    content: '→';
+    content: 'â†’';
     flex: none;
     width: auto;
     height: auto;
@@ -1271,7 +1271,7 @@ img {
     width: 88vw;
   }
 
-  /* 44px minimum tap target — the extra height is hidden overflow
+  /* 44px minimum tap target â€” the extra height is hidden overflow
      rather than visible padding, so the frame still reads as 3:2.
      There is no hover on touch, so the unselected frames need enough
      presence to read as photographs rather than dimmed placeholders. */
@@ -1281,403 +1281,5 @@ img {
   }
   .sheet:not(.sheet--open) .sheet-frame[data-active] {
     opacity: 1;
-  }
-}
-
-/* ============================================================
-   Phone-only furniture — inert until the roll takes over below
-   ============================================================ */
-.cover-mark,
-.cover-index,
-.roll-nav,
-.roll-top,
-.series-count {
-  display: none;
-}
-
-/* ############################################################
-   THE ROLL — phone only
-   ############################################################
-   A contact sheet is a roll of film laid flat, and on a phone the
-   honest way to look at a roll is to scroll down it. Below this
-   breakpoint the horizontal track is retired and the site becomes one
-   vertical document: a cover, three chapter cards, 45 photographs at
-   their true aspect ratio. Horizontal swipe survives in the one place
-   it is genuinely native — inside the lightbox.
-
-   The breakpoint is 700px, not the 899px used by the block above,
-   because a tablet should keep the horizontal track: phones top out
-   near 480px logical, the smallest tablet starts around 744px. So
-   700-899px still gets the compact horizontal layout, and only a phone
-   gets the roll.
-
-   Everything phone-side lives in this one block. Reverting the whole
-   direction is deleting it and unwiring isRoll() in main.js.
-   ############################################################ */
-@media (max-width: 700px) {
-
-  /* ── Release the scroll lock ────────────────────────────────
-     overflow-x: clip rather than hidden — hidden would make the body a
-     scroll container itself and break the snapping below. */
-  html {
-    height: auto;
-    overflow: visible;
-    overflow-x: clip;
-    scroll-behavior: smooth;
-    /* The snap container is html, not .sheets: .sheets is not a scroll
-       container, so snapping declared on it would be silently inert.
-       proximity, never mandatory — mandatory fights momentum scrolling
-       and reads as broken. If it misbehaves, delete these two lines and
-       the roll still works, it just stops centring frames. */
-    scroll-snap-type: y proximity;
-  }
-
-  body {
-    height: auto;
-    overflow: visible;
-    overflow-x: clip;
-    background: #000;
-  }
-
-  /* A gold radial wash over full-bleed photographs tints them. Fine as
-     desktop atmosphere, wrong when the picture is the page. */
-  #bg-wash {
-    display: none;
-  }
-
-  #track {
-    display: block;
-    height: auto;
-    overflow: visible;
-    scroll-snap-type: none;
-  }
-
-  .page,
-  .page-photo {
-    display: block;
-    flex: none;
-    width: 100%;
-    height: auto;
-    padding: 0;
-    overflow: visible;
-    scroll-snap-align: none;
-    background: #000;
-  }
-
-  /* The entrance reveal is driven by an IntersectionObserver keyed to
-     the track. Rather than depend on that branch being right — get it
-     wrong and the contact panel's text is invisible forever, with
-     nothing in the console — the roll simply does not use it. */
-  .page-inner > *,
-  .series-mark {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  /* ── 01 The Cover ───────────────────────────────────────────
-     The letterbox above and below a 3:2 frame is unavoidable on a
-     phone, so it stops being a hole and becomes the title page. */
-  #hero {
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 26px;
-    padding: max(28px, env(safe-area-inset-top)) 0 34px;
-  }
-
-  /* Stays a positioned parent: the .bloom-colour mask animation needs
-     its containing block or the signature entrance breaks. */
-  #hero .photo-frame {
-    position: relative;
-    inset: auto;
-    width: 100%;
-    max-width: none;
-    aspect-ratio: 3 / 2;
-    margin: 0;
-  }
-  #hero .photo-scrim {
-    display: none;
-  }
-  #hero .photo-exif {
-    position: static;
-    width: auto;
-    padding: 0 22px;
-    align-items: flex-start;
-    text-align: left;
-    transform: none;
-  }
-
-  .cover-mark {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0 22px;
-  }
-  .cover-name {
-    display: block;
-    font-family: var(--w-disp);
-    font-size: 26px;
-    line-height: 1;
-  }
-  .cover-name::after {
-    content: '';
-    display: block;
-    width: 26px;
-    height: 2px;
-    margin-top: 12px;
-    background: var(--w-accent);
-  }
-  .cover-sub {
-    font-family: var(--w-lab);
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--w-mute);
-  }
-
-  .cover-index {
-    display: block;
-    padding: 0 22px;
-  }
-  .cover-index a {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 52px;
-    border-top: 1px solid var(--w-hair);
-    font-family: var(--w-lab);
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-  .cover-index a:last-child {
-    border-bottom: 1px solid var(--w-hair);
-  }
-  .ci-num {
-    color: var(--w-accent);
-  }
-  .ci-name {
-    flex: 1;
-    color: var(--w-ink);
-  }
-  .ci-count {
-    color: var(--w-mute);
-  }
-
-  /* ── The chapter card ───────────────────────────────────────
-     Out of the corner and into the flow. No photograph behind it: a 3:2
-     frame cover-cropped into a band on this screen loses most of its
-     width, and the eye wants a rest between series anyway. The text
-     shadow and the entrance transform both existed to survive sitting
-     over a picture; on black they only muddy the type. */
-  .series-mark {
-    position: static;
-    max-width: none;
-    padding: 13vh 22px 5vh;
-    gap: 12px;
-    text-shadow: none;
-    pointer-events: auto;
-    border-top: 1px solid var(--w-hair);
-  }
-  .series-name {
-    font-size: clamp(38px, 11vw, 60px);
-  }
-  .series-count {
-    display: block;
-    font-family: var(--w-lab);
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--w-mute);
-  }
-
-  /* The five-plate crossfade is a hover device with no trigger on
-     touch, and it is what forced object-fit:cover to crop a 3:2 frame
-     into a sliver. :has() scopes this to the three series panels —
-     #hero is also .page-photo and must keep its frame. */
-  .page-photo:has(.sheets) > .photo-frame {
-    display: none;
-  }
-
-  /* ── The roll ───────────────────────────────────────────────
-     Both rows become columns with the same gap, so the 15 frames read
-     as one continuous run. Deliberately not display:contents, which
-     would leave a role="tablist" containing no tabs for a screen
-     reader. */
-  .page-photo .sheets {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 44px;
-    width: 100%;
-    padding: 0 0 8vh;
-    transform: none;
-  }
-  .sheet,
-  .sheet--open {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 44px;
-    max-width: none;
-  }
-  .sheet-div {
-    display: none;
-  }
-
-  .sheet-frame,
-  .sheet:not(.sheet--open) .sheet-frame,
-  .sheet--open .sheet-frame {
-    width: 100%;
-    /* Dropping the forced 3:2 is the fix for the eight files that are
-       actually 1467x2200 — today they are cover-cropped to landscape and
-       lose more than half the frame. JS stamps the real ratio from the
-       already-loaded thumb so the box is reserved before the medium
-       arrives and nothing shifts. */
-    aspect-ratio: auto;
-    min-height: 0;
-    overflow: visible;
-    border: 0;
-    background: none;
-    opacity: 1;
-    /* Defeats the translateY(-7px) hover lift, which on touch fires on
-       tap and reads as a glitch. */
-    transform: none;
-    scroll-snap-align: center;
-  }
-  .sheet-frame img {
-    width: 100%;
-    height: auto;
-    object-fit: fill;
-  }
-  .sheet-num,
-  .sheet-open-glyph {
-    display: none;
-  }
-
-  /* Gutter caption — gold running number and title set in the black
-     beneath each frame, never over the picture. data-n is stamped 01–15
-     across both rows by JS; data-title already exists on every button.
-     Full EXIF stays one tap away in the lightbox: fifteen EXIF strings
-     down a scroll is noise. */
-  .sheet-frame::before,
-  .sheet-frame::after {
-    position: absolute;
-    bottom: -27px;
-    font-family: var(--w-lab);
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    pointer-events: none;
-  }
-  .sheet-frame::before {
-    content: attr(data-n);
-    left: 22px;
-    color: var(--w-accent);
-  }
-  .sheet-frame::after {
-    content: attr(data-title);
-    left: 48px;
-    right: 22px;
-    text-align: left;
-    color: rgba(255, 255, 255, 0.78);
-  }
-
-  /* ── 05 Contact ─────────────────────────────────────────────
-     Crop untouched: a centred subject in darkness is the one
-     composition here that survives this screen shape. Only the text
-     moves — out of two opposite corners with a hole between them, into
-     one block anchored in the bottom third. */
-  #contact {
-    min-height: 100dvh;
-  }
-  #contact .page-inner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    gap: 22px;
-    padding: 0 22px calc(84px + env(safe-area-inset-bottom));
-  }
-  /* Specificity has to clear .page--photo-bg .page-inner > .contact-foot,
-     which hard-codes translateX(-50%) for the desktop absolute centring
-     and would otherwise drag this block half its own width off-screen. */
-  #contact .contact-title,
-  #contact .page-inner > .contact-foot {
-    position: static;
-    width: auto;
-    text-align: left;
-    transform: none;
-  }
-  .contact-title .copyright {
-    text-align: left;
-  }
-  .roll-top {
-    display: block;
-    font-family: var(--w-lab);
-    font-size: 9px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--w-mute);
-  }
-
-  /* ── Chrome ─────────────────────────────────────────────────
-     .dot::after only reveals a section name on :hover, which never
-     fires on touch — the dot nav was five unlabelled 7px targets. Words
-     are navigation; dots are decoration. */
-  #chrome {
-    display: none;
-  }
-  .progress-track {
-    top: 0;
-    bottom: auto;
-  }
-
-  .roll-nav {
-    display: flex;
-    position: fixed;
-    inset: auto 0 0 0;
-    z-index: 50;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.94),
-      rgba(0, 0, 0, 0.72) 62%,
-      transparent
-    );
-    font-family: var(--w-lab);
-    font-size: 9.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--w-mute);
-    transition: transform 0.3s ease;
-  }
-  .roll-nav a {
-    padding: 10px 6px;
-    color: inherit;
-  }
-  .roll-nav a[data-current] {
-    color: var(--w-accent);
-  }
-  /* Auto-hidden on scroll-down so it never sits on a photograph you are
-     in the middle of looking at. */
-  .roll-nav.is-hidden {
-    transform: translateY(120%);
-  }
-
-  /* 6vw of side padding on a 412px phone gave away 50px of picture for
-     nothing — max-height was binding first, so the padding bought no
-     safety at all. */
-  #lightbox {
-    padding: 6vh 2vw 10vh;
-  }
-  #lb-img {
-    max-height: 78dvh;
   }
 }

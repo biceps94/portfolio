@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <!-- viewport-fit=cover: once the body actually scrolls on a phone, the
-       roll layout needs env(safe-area-inset-*) and a correct 100dvh on
-       notched handsets. No effect on desktop. -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Slobodan Cvjeticanin — Photography</title>
   <meta name="description" content="Photography by Slobodan Cvjeticanin — Sculptures, Portraits, and Elsewhere.">
   <meta name="theme-color" content="#221d1a">
@@ -33,18 +30,6 @@
            here for screen readers and search engines only. -->
       <h1 class="sr-only">Slobodan Cvjeticanin — Photography</h1>
 
-      <!-- Cover furniture. Phone only (display:none above the roll
-           breakpoint) — on a phone the letterbox above and below a 3:2
-           frame is unavoidable, so it carries the identity and the way
-           in rather than sitting empty. -->
-      <div class="cover-mark">
-        <span class="cover-name">
-          <span class="wordmark-given">Slobodan</span>
-          <span class="wordmark-family">Cvjeticanin</span>
-        </span>
-        <span class="cover-sub">Belgrade · Photographs 2024–2026</span>
-      </div>
-
       <figure class="photo-frame">
         <!-- Two layers of the same file (one network fetch, served from cache).
              The greyscale copy sits underneath; the colour copy is masked and
@@ -69,16 +54,6 @@
           </span>
         </figcaption>
       </figure>
-
-      <!-- Table of contents. Phone only. Tells a first-time visitor
-           within the first screen that there are 45 photographs here,
-           and lets them go straight to a series instead of scrolling
-           blind through a very long document. -->
-      <nav class="cover-index" aria-label="Series">
-        <a href="#sculptures"><span class="ci-num">01</span><span class="ci-name">Sculptures</span><span class="ci-count">15</span></a>
-        <a href="#portraits"><span class="ci-num">02</span><span class="ci-name">Portraits</span><span class="ci-count">15</span></a>
-        <a href="#elsewhere"><span class="ci-num">03</span><span class="ci-name">Elsewhere</span><span class="ci-count">15</span></a>
-      </nav>
     </section>
 
     <!-- ═══ 02 — SCULPTURES (contact sheet) ══════════════════
@@ -95,7 +70,6 @@
         <span class="series-num">Series 01</span>
         <h2 class="series-name">Sculptures</h2>
         <p class="series-line">Marble and bronze under available light.</p>
-        <span class="series-count">Fifteen photographs</span>
       </div>
 
       <figure class="photo-frame">
@@ -287,7 +261,6 @@
         <span class="series-num">Series 02</span>
         <h2 class="series-name">Portraits</h2>
         <p class="series-line">Available light, one lens, no direction beyond keep breathing.</p>
-        <span class="series-count">Fifteen photographs</span>
       </div>
 
       <figure class="photo-frame">
@@ -478,7 +451,6 @@
         <span class="series-num">Series 03</span>
         <h2 class="series-name">Elsewhere</h2>
         <p class="series-line">Somewhere that wasn't home, and whatever the light was doing there.</p>
-        <span class="series-count">Fifteen photographs</span>
       </div>
 
       <figure class="photo-frame">
@@ -698,10 +670,6 @@
             </a>
           </div>
         </div>
-        <!-- Phone only. With the horizontal track gone below the roll
-             breakpoint, this is the only way home from the end of a
-             very long document. -->
-        <a class="roll-top" href="#hero">↑ Back to the start</a>
       </div>
     </section>
 
@@ -723,18 +691,6 @@
     </div>
   </div>
   <div class="progress-track"><div id="progress-bar"></div></div>
-
-  <!-- Phone-only navigation rail. Replaces the dot nav below the roll
-       breakpoint: .dot::after only reveals a section name on :hover, which
-       never fires on touch, so the dots were five unlabelled 7px targets.
-       Words are navigation; dots are decoration. Auto-hides on scroll-down
-       so it never sits on a photograph you are looking at. -->
-  <nav class="roll-nav" aria-label="Sections">
-    <a href="#sculptures">Sculptures</a>
-    <a href="#portraits">Portraits</a>
-    <a href="#elsewhere">Elsewhere</a>
-    <a href="#contact">Contact</a>
-  </nav>
 
   <!-- ── Lightbox ─────────────────────────────────────────────── -->
   <div id="lightbox" role="dialog" aria-modal="true" aria-hidden="true"
