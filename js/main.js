@@ -241,6 +241,19 @@
   // The wheel must not page the track behind an open lightbox.
   lightbox.addEventListener('wheel', function (e) { e.preventDefault(); }, { passive: false });
 
+  // ── Lightbox swipe (mobile) ──────────────────────────────
+  var lbTouchX = null;
+  lightbox.addEventListener('touchstart', function (e) {
+    lbTouchX = e.touches[0].clientX;
+  }, { passive: true });
+  lightbox.addEventListener('touchend', function (e) {
+    if (lbTouchX === null) return;
+    var dx = e.changedTouches[0].clientX - lbTouchX;
+    lbTouchX = null;
+    if (Math.abs(dx) < 40) return;
+    lbShow(dx < 0 ? lbIndex + 1 : lbIndex - 1);
+  }, { passive: true });
+
   // ── Custom right-click menu ──────────────────────────────────
   const menu = document.getElementById('ctx-menu');
   const EMAIL = 's.cvjeticanin94@gmail.com';

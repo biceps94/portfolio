@@ -1125,4 +1125,36 @@ img {
   #section-dots {
     padding-bottom: 4px;
   }
+
+  /* Contact panel: move the title to top-left so it doesn't sit
+     on top of the buttons at the bottom. Scale it down so
+     "End of the roll." stays on one line on a narrow screen. */
+  .page--photo-bg .display-lg {
+    top: 44px;
+    bottom: auto;
+    left: 22px;
+    right: auto;
+    text-align: left;
+    font-size: clamp(26px, 6.5vw, 38px);
+  }
+
+  /* Contact foot: wider and lifted further above the chrome bar */
+  .contact-foot {
+    bottom: 90px;
+    width: 88vw;
+  }
+
+  /* Row 1 thumbnails: taller tap target (44 px minimum).
+     The width stays at --sheet-frame-w; the extra height is
+     hidden overflow, not visible padding, so thumbnails look
+     the same but fingers can land more reliably. */
+  .sheet:not(.sheet--open) .sheet-frame {
+    min-height: 44px;
+  }
+
+  /* Row 2 thumbnails: always show the ⤢ glyph — no hover on touch,
+     so users need the visual cue that these frames open full size. */
+  .sheet--open .sheet-frame .sheet-open-glyph {
+    opacity: 0.7;
+  }
 }
