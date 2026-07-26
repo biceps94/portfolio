@@ -348,8 +348,19 @@ img {
 }
 
 .page--photo-bg .page-inner {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  padding: 44px 8vw 80px;
+  max-width: none;
+  justify-content: space-between;
   z-index: 1;
+}
+
+.contact-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 520px;
 }
 
 /* The display type is big enough to carry itself. The small uppercase
