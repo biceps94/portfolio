@@ -357,22 +357,29 @@ img {
 
 .page--photo-bg .display-lg {
   position: absolute;
-  bottom: 88px;
-  right: 8vw;
+  bottom: 20px;
+  right: 1vw;
   text-align: right;
   margin: 0;
 }
 
 .contact-foot {
   position: absolute;
-  bottom: 88px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  bottom: 50px;
+  left: 50%;
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: min(520px, 84vw);
+}
+
+/* Combine the centering translateX with the entrance-animation translateY
+   so neither clobbers the other. */
+.page--photo-bg .page-inner > .contact-foot {
+  transform: translateX(-50%) translateY(22px);
+}
+.page.is-visible .page--photo-bg .page-inner > .contact-foot {
+  transform: translateX(-50%) translateY(0);
 }
 
 /* The display type is big enough to carry itself. The small uppercase
