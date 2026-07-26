@@ -355,12 +355,24 @@ img {
   z-index: 1;
 }
 
-.page--photo-bg .display-lg {
+.contact-title {
   position: absolute;
   bottom: 20px;
   right: 1vw;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-title .display-lg {
   margin: 0;
+}
+
+.contact-title .copyright {
+  text-align: right;
+  margin-top: 0;
+  opacity: 0.7;
 }
 
 .contact-foot {
@@ -1127,16 +1139,20 @@ img {
     padding-bottom: 4px;
   }
 
-  /* Contact panel: move the title to top-left so it doesn't sit
-     on top of the buttons at the bottom. Scale it down so
-     "End of the roll." stays on one line on a narrow screen. */
-  .page--photo-bg .display-lg {
+  /* Contact panel: move the title block to top-left so it doesn't
+     sit on top of the buttons at the bottom. */
+  .contact-title {
     top: 44px;
     bottom: auto;
     left: 22px;
     right: auto;
     text-align: left;
+  }
+  .contact-title .display-lg {
     font-size: clamp(26px, 6.5vw, 38px);
+  }
+  .contact-title .copyright {
+    text-align: left;
   }
 
   /* Contact foot: wider and lifted further above the chrome bar */
