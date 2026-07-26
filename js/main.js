@@ -316,6 +316,23 @@
   track.addEventListener('scroll', closeMenu, { passive: true });
   window.addEventListener('blur', closeMenu);
 
+  // ── Restore panel after refresh ──────────────────────────────
+  // beforeunload fires whether the user hits the browser refresh
+  // button or the custom-menu Refresh item, so both paths are covered.
+  var savedPanel = sessionStorage.getItem('sc-panel');
+  if (savedPanel !== null) {
+    var restoredIndex = parseInt(savedPanel, 10);
+    sessionStorage.removeItem('sc-panel');
+    if (restoredIndex > 0 && restoredIndex < pages.length) {
+      current = restoredIndex;
+      track.scrollTo({ left: restoredIndex * track.clientWidth, behavior: 'auto' });
+    }
+  }
+  window.addEventListener('beforeunload', function () {
+    if (current > 0) sessionStorage.setItem('sc-panel', current);
+    else             sessionStorage.removeItem('sc-panel');
+  });
+
   // ── Initial state ────────────────────────────────────────────
   dots[0].toggleAttribute('data-active', true);
   syncChrome();
