@@ -1,6 +1,12 @@
 /* ============================================================
    Photography Portfolio — main.js
-   Horizontal paged navigation. No dependencies.
+   Horizontal paged navigation on desktop and tablet; a vertical
+   roll on phones. No dependencies.
+
+   Every phone-side behaviour is gated behind isRoll(). The else
+   branch of each gate is the original desktop code, unchanged —
+   so reverting the phone direction is deleting the roll CSS block
+   and unwiring this one predicate.
    ============================================================ */
 
 (function () {
@@ -10,7 +16,14 @@
   const dotsWrap = document.getElementById('section-dots');
   const chrome   = document.getElementById('chrome');
   const bar      = document.getElementById('progress-bar');
+  const rollNav  = document.querySelector('.roll-nav');
   const pages    = Array.from(track.querySelectorAll('.page'));
+
+  // Must match the breakpoint on the roll block in styles.css. 700px,
+  // not 899px: a tablet keeps the horizontal track, and the smallest
+  // tablet starts around 744px while phones top out near 480px.
+  const rollMQ = window.matchMedia('(max-width: 700px)');
+  function isRoll() { return rollMQ.matches; }
 
   let current = 0;
 
@@ -31,11 +44,17 @@
 
   function goTo(i) {
     current = Math.max(0, Math.min(pages.length - 1, i));
+    if (isRoll()) {
+      pages[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
     track.scrollTo({ left: current * track.clientWidth, behavior: 'smooth' });
   }
 
   // ── Reflect scroll position in dots, label and progress bar ──
   function syncChrome() {
+    if (isRoll()) { syncRoll(); return; }
+
     const w = track.clientWidth;
     const i = Math.round(track.scrollLeft / w);
     const max = Math.max(1, track.scrollWidth - w);
@@ -49,8 +68,45 @@
     }
   }
 
+  // track.scrollLeft and track.clientWidth are both meaningless once the
+  // track is display:block with height auto, so the roll reads the
+  // document scroller instead and lights the nav rail by position.
+  function syncRoll() {
+    const doc = document.documentElement;
+    const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+    if (bar) bar.style.transform = 'scaleX(' + (window.scrollY / max) + ')';
+
+    if (!rollNav) return;
+
+    // The last section whose top has passed 40% of the viewport is the
+    // one actually being read.
+    let activeId = pages[0].id;
+    pages.forEach(function (p) {
+      if (p.getBoundingClientRect().top <= window.innerHeight * 0.4) activeId = p.id;
+    });
+    Array.from(rollNav.querySelectorAll('a')).forEach(function (a) {
+      a.toggleAttribute('data-current', a.getAttribute('href') === '#' + activeId);
+    });
+  }
+
   track.addEventListener('scroll', function () {
+    if (isRoll()) return;
     window.requestAnimationFrame(syncChrome);
+  }, { passive: true });
+
+  let lastY = 0;
+  window.addEventListener('scroll', function () {
+    if (!isRoll()) return;
+    window.requestAnimationFrame(syncChrome);
+
+    // Keep the rail off a photograph while it is being looked at:
+    // hide going down the roll, bring it back on any upward intent.
+    if (rollNav) {
+      const y = window.scrollY;
+      if (y > lastY + 8 && y > 200)  rollNav.classList.add('is-hidden');
+      else if (y < lastY - 8)        rollNav.classList.remove('is-hidden');
+      lastY = y;
+    }
   }, { passive: true });
 
   // ── Wheel → horizontal paging ────────────────────────────────
@@ -59,6 +115,11 @@
   let locked = false;
 
   track.addEventListener('wheel', function (e) {
+    // In the roll the document scrolls natively. Left live, this handler's
+    // preventDefault would freeze the page on any touch-laptop or on a
+    // phone in desktop mode.
+    if (isRoll()) return;
+
     // Trackpads send horizontal deltas already — let those scroll natively.
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
 
@@ -76,6 +137,7 @@
 
   // ── Keyboard ─────────────────────────────────────────────────
   document.addEventListener('keydown', function (e) {
+    if (isRoll()) return;                       // the document pages itself
     if (e.target.matches('input, textarea')) return;
 
     const map = {
@@ -97,36 +159,106 @@
 
   // ── Deferred image loading ───────────────────────────────────
   // Plates in off-screen panels carry data-src instead of src so the
-  // browser skips them on first paint. This observer fires as soon as any
-  // pixel of a panel enters the scroll window — well before the snap
-  // settles — and swaps them in. threshold: 0 fires earlier than the
-  // is-visible observer below, so images are already loading before the
-  // panel animates in.
-  const preloader = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (!entry.isIntersecting) return;
-      entry.target.querySelectorAll('img[data-src]').forEach(function (img) {
-        img.src = img.dataset.src;
-        img.removeAttribute('data-src');
+  // browser skips them on first paint. The observer fires as soon as any
+  // pixel of a panel enters the scroll window and swaps them in.
+  //
+  // root has to follow the mode. Left as `track` in the roll it breaks
+  // silently rather than loudly: the track no longer clips, so its root
+  // rect becomes the whole document, every panel reads as intersecting on
+  // load, and every deferred image fetches at once.
+  let preloader = null;
+  let revealer  = null;
+
+  function buildObservers() {
+    if (preloader) preloader.disconnect();
+    if (revealer)  revealer.disconnect();
+
+    const root = isRoll() ? null : track;
+
+    preloader = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll('img[data-src]').forEach(function (img) {
+          // The five stacked plates are display:none in the roll. An img
+          // with src set downloads whether or not it is displayed, so
+          // skipping them here is what keeps ~5 MB per series off a phone.
+          if (isRoll() && img.classList.contains('plate')) return;
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        });
+        preloader.unobserve(entry.target);
       });
-      preloader.unobserve(entry.target);
+    }, { root: root, threshold: 0 });
+
+    revealer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { root: root, threshold: 0.25 });
+
+    pages.forEach(function (p) {
+      preloader.observe(p);
+      revealer.observe(p);
     });
-  }, { root: track, threshold: 0 });
+  }
 
-  pages.forEach(function (p) { preloader.observe(p); });
+  // ── Roll frames: thumb → medium ──────────────────────────────
+  // The thumbs are 260px and would be mush displayed full width; the
+  // originals are ~700 KB each and fifteen stacked is 10 MB. The medium
+  // tier is ~115 KB. No loading="lazy" anywhere in this file — it never
+  // fires for a horizontally scrolled panel — so this is an explicit
+  // observer with two screens of lead. The thumb stays painted until the
+  // medium decodes, so a fast scroller never lands on a black box.
+  let frameLoader = null;
 
-  // ── Reveal panels as they come into view ─────────────────────
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) entry.target.classList.add('is-visible');
+  function buildFrameLoader() {
+    if (frameLoader) { frameLoader.disconnect(); frameLoader = null; }
+    if (!isRoll()) return;
+
+    frameLoader = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const img = entry.target;
+        frameLoader.unobserve(img);
+
+        const thumbSrc = img.getAttribute('src') || '';
+        if (thumbSrc.indexOf('/thumbs/') === -1) return;   // already swapped
+
+        img.onerror = function () {
+          img.onerror = null;
+          img.src = thumbSrc;                              // medium missing
+        };
+        img.src = thumbSrc.replace('/thumbs/', '/medium/');
+      });
+    }, { root: null, rootMargin: '150% 0px' });
+
+    document.querySelectorAll('.sheet-frame img').forEach(function (img) {
+      frameLoader.observe(img);
     });
-  }, { root: track, threshold: 0.25 });
+  }
 
-  pages.forEach(function (p) { observer.observe(p); });
+  // Reserve each frame's real box from the already-loaded thumb, so a
+  // 2:3 vertical does not have to wait for its medium to stop being a
+  // 3:2 hole. Desktop wants uniform 3:2 frames, so the inline value is
+  // cleared when the roll is not in play.
+  function stampRatios() {
+    document.querySelectorAll('.sheet-frame').forEach(function (frame) {
+      if (!isRoll()) { frame.style.aspectRatio = ''; return; }
+      const img = frame.querySelector('img');
+      if (!img) return;
+      const apply = function () {
+        if (!img.naturalWidth) return;
+        frame.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+      };
+      if (img.complete) apply();
+      else img.addEventListener('load', apply, { once: true });
+    });
+  }
 
   // ── Keep the current panel aligned across resizes ────────────
   let resizeTimer;
   window.addEventListener('resize', function () {
+    if (isRoll()) return;      // re-scrolling a block-level track is a no-op
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       track.scrollTo({ left: current * track.clientWidth, behavior: 'auto' });
@@ -146,6 +278,11 @@
   // Zero-padded, to match the 01–05 numerals on the contact sheet.
   function pad(n) { return String(n).padStart(2, '0'); }
 
+  // images/<series>/<file>.jpg → images/<series>/medium/<file>.jpg
+  function mediumOf(src) {
+    return src.replace(/\/([^/]+\.jpg)$/i, '/medium/$1');
+  }
+
   let lbGroup = [];
   let lbIndex = 0;
   let lbLastFocus = null;
@@ -156,7 +293,17 @@
     if (!lbGroup.length) return;
     lbIndex = (i + lbGroup.length) % lbGroup.length;   // wraps both ways
     const d = lbGroup[lbIndex].dataset;
-    lbImg.src = d.src;
+
+    // A phone was pulling the 2200px original — roughly 1 MB a frame.
+    // Fall back to it if a medium file is ever missing.
+    if (isRoll()) {
+      lbImg.onerror = function () { lbImg.onerror = null; lbImg.src = d.src; };
+      lbImg.src = mediumOf(d.src);
+    } else {
+      lbImg.onerror = null;
+      lbImg.src = d.src;
+    }
+
     lbImg.alt = d.alt || '';
     lbTitle.textContent = d.title;
     lbMeta.textContent  = d.meta;
@@ -178,6 +325,20 @@
     if (lbLastFocus) lbLastFocus.focus();
   }
 
+  // ── Tap versus flick ─────────────────────────────────────────
+  // In the roll every frame is a tap target the height of the screen, so
+  // without this a scroll gesture that starts on a photograph is read as
+  // a tap and throws the lightbox open mid-flick. pointerup lands before
+  // click, so the flag is always current by the time a handler reads it.
+  let downX = 0, downY = 0, dragged = false;
+  document.addEventListener('pointerdown', function (e) {
+    downX = e.clientX; downY = e.clientY; dragged = false;
+  }, true);
+  document.addEventListener('pointerup', function (e) {
+    dragged = Math.abs(e.clientX - downX) > 8 || Math.abs(e.clientY - downY) > 8;
+  }, true);
+  function wasFlick() { return isRoll() && dragged; }
+
   // ── Contact sheets ───────────────────────────────────────────
   // Every photo panel wires itself. All lookups are scoped to the panel
   // that owns the sheet: a document-wide query would attach only to the
@@ -188,6 +349,13 @@
     const titleEl = panel.querySelector('[data-exif-title]');
     const metaEl  = panel.querySelector('[data-exif-meta]');
     const tabs    = Array.from(sheets.querySelectorAll('[role="tablist"] .sheet-frame'));
+    const openers = Array.from(sheets.querySelectorAll('.sheet--open .sheet-frame'));
+
+    // Running number across both rows, 01–15, drawn in the gutter beneath
+    // each frame by CSS. The two source rows have to read as one roll.
+    tabs.concat(openers).forEach(function (btn, n) {
+      btn.dataset.n = pad(n + 1);
+    });
 
     function showPlate(i) {
       plates.forEach(function (p, n) { p.toggleAttribute('data-active', n === i); });
@@ -199,24 +367,48 @@
       metaEl.textContent  = tabs[i].dataset.meta;
     }
 
+    // In the roll the lightbox sequence is all fifteen frames of the
+    // series, not just the ten in the archive row. Row 1's buttons carry
+    // no full-size source — that lives on the paired plate — so the group
+    // is assembled as plain objects. lbShow only ever reads .dataset, so
+    // these stand in for elements with no DOM mutation at all.
+    function rollGroup() {
+      const highlights = tabs.map(function (btn, i) {
+        const plate = plates[i];
+        return {
+          dataset: {
+            src:   plate ? (plate.dataset.src || plate.getAttribute('src')) : '',
+            title: btn.dataset.title,
+            meta:  btn.dataset.meta,
+            alt:   plate ? plate.alt : ''
+          }
+        };
+      });
+      return highlights.concat(openers);
+    }
+
     tabs.forEach(function (frame, i) {
       // Hover previews on a pointer; click and focus cover touch and keyboard.
-      frame.addEventListener('mouseenter', function () { showPlate(i); });
-      frame.addEventListener('focus',      function () { showPlate(i); });
-      frame.addEventListener('click',      function () { showPlate(i); });
+      frame.addEventListener('mouseenter', function () { if (!isRoll()) showPlate(i); });
+      frame.addEventListener('focus',      function () { if (!isRoll()) showPlate(i); });
+      frame.addEventListener('click',      function () {
+        if (!isRoll()) { showPlate(i); return; }
+        if (wasFlick()) return;
+        lbOpen(rollGroup(), i);
+      });
     });
 
-    // This panel's archive row is its own lightbox sequence.
-    const openers = Array.from(sheets.querySelectorAll('.sheet--open .sheet-frame'));
     openers.forEach(function (btn, i) {
-      btn.addEventListener('click', function () { lbOpen(openers, i); });
+      btn.addEventListener('click', function () {
+        if (wasFlick()) return;
+        if (isRoll()) { lbOpen(rollGroup(), tabs.length + i); return; }
+        lbOpen(openers, i);
+      });
     });
 
-    // The divider doubles as the way into the archive. It has to, on a
-    // phone: the row it labels is hidden there, because ten 40px frames
-    // are ten grey smudges and the lightbox already swipes. Wiring it
-    // unconditionally costs nothing on desktop, where it reads as a
-    // shortcut to the first frame rather than as the only door.
+    // The divider doubles as the way into the archive at tablet width,
+    // where the row it labels is hidden. It is display:none in the roll,
+    // which has all fifteen frames in the flow instead.
     const divider = sheets.querySelector('.sheet-div');
     if (divider && openers.length) {
       divider.setAttribute('role', 'button');
@@ -240,7 +432,7 @@
     if (e.target === lightbox) lbClose();
   });
 
-  // Capture phase, so this runs before the panel-paging handler below.
+  // Capture phase, so this runs before the panel-paging handler above.
   document.addEventListener('keydown', function (e) {
     if (!lbIsOpen()) return;
 
@@ -256,10 +448,12 @@
     e.preventDefault();
   }, true);
 
-  // The wheel must not page the track behind an open lightbox.
+  // Nothing behind an open lightbox may move — the track on desktop, the
+  // document in the roll.
   lightbox.addEventListener('wheel', function (e) { e.preventDefault(); }, { passive: false });
 
-  // ── Lightbox swipe (mobile) ──────────────────────────────
+  // ── Lightbox swipe ───────────────────────────────────────────
+  // The one place the horizontal gesture survives on a phone.
   var lbTouchX = null;
   lightbox.addEventListener('touchstart', function (e) {
     lbTouchX = e.touches[0].clientX;
@@ -297,6 +491,10 @@
   }
 
   document.addEventListener('contextmenu', function (e) {
+    // Mouse only. On a touchscreen this fires on long-press, so it was
+    // popping a desktop menu offering "Refresh" over a photograph and
+    // stealing the OS image menu.
+    if (!window.matchMedia('(pointer: fine)').matches) return;
     e.preventDefault();
     openMenu(e.clientX, e.clientY);
   });
@@ -334,25 +532,50 @@
   track.addEventListener('scroll', closeMenu, { passive: true });
   window.addEventListener('blur', closeMenu);
 
-  // ── Restore panel after refresh ──────────────────────────────
-  // beforeunload fires whether the user hits the browser refresh
-  // button or the custom-menu Refresh item, so both paths are covered.
-  var savedPanel = sessionStorage.getItem('sc-panel');
-  if (savedPanel !== null) {
-    var restoredIndex = parseInt(savedPanel, 10);
+  // ── Restore position after refresh ───────────────────────────
+  // beforeunload fires for the browser's own refresh and for the custom
+  // menu's Refresh item alike. The roll stores a scroll offset; the
+  // horizontal track stores a panel index.
+  (function restore() {
+    const savedScroll = sessionStorage.getItem('sc-scroll');
+    const savedPanel  = sessionStorage.getItem('sc-panel');
+    sessionStorage.removeItem('sc-scroll');
     sessionStorage.removeItem('sc-panel');
-    if (restoredIndex > 0 && restoredIndex < pages.length) {
-      current = restoredIndex;
-      track.scrollTo({ left: restoredIndex * track.clientWidth, behavior: 'auto' });
+
+    if (isRoll()) {
+      if (savedScroll !== null) window.scrollTo(0, parseInt(savedScroll, 10) || 0);
+      return;
     }
-  }
+    if (savedPanel === null) return;
+    const i = parseInt(savedPanel, 10);
+    if (i > 0 && i < pages.length) {
+      current = i;
+      track.scrollTo({ left: i * track.clientWidth, behavior: 'auto' });
+    }
+  })();
+
   window.addEventListener('beforeunload', function () {
+    if (isRoll()) {
+      if (window.scrollY > 0) sessionStorage.setItem('sc-scroll', window.scrollY);
+      return;
+    }
     if (current > 0) sessionStorage.setItem('sc-panel', current);
-    else             sessionStorage.removeItem('sc-panel');
   });
+
+  // ── Mode ─────────────────────────────────────────────────────
+  // Rebuilt rather than reloaded, so rotating a phone across the
+  // breakpoint does not throw the visitor back to the top.
+  function applyMode() {
+    buildObservers();
+    buildFrameLoader();
+    stampRatios();
+    syncChrome();
+  }
+
+  rollMQ.addEventListener('change', applyMode);
 
   // ── Initial state ────────────────────────────────────────────
   dots[0].toggleAttribute('data-active', true);
-  syncChrome();
+  applyMode();
 
 })();

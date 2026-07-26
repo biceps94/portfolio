@@ -1,3 +1,5 @@
 # Build scripts — not part of the website
 *.ps1
 *.txt
+
+.vercel
