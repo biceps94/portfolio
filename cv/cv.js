@@ -37,6 +37,7 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll(); /* sync nav + parallax with restored scroll position on load */
 
   /* ── Flip cards + flip rows ────────────────────────────────── */
   var cards = document.querySelectorAll('.flip-card, .flip-row');
@@ -168,6 +169,11 @@
   if (window.gsap && window.ScrollTrigger && !reducedMotion) {
     gsap.registerPlugin(ScrollTrigger);
 
+    /* Hide up front — .from() inside a timeline doesn't apply its start
+       state until the trigger fires, which flashes content on refresh */
+    gsap.set('.intro-heading', { autoAlpha: 0, y: 26 });
+    gsap.set('.intro-line-inner', { yPercent: 115 });
+
     gsap.timeline({
       scrollTrigger: {
         trigger: '#summary',
@@ -176,11 +182,11 @@
       },
       onComplete: startParticles
     })
-      .from('.intro-heading', {
-        y: 26, opacity: 0, duration: 0.7, ease: 'power3.out'
+      .to('.intro-heading', {
+        autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out'
       })
-      .from('.intro-line-inner', {
-        yPercent: 115, duration: 0.85, ease: 'power3.out', stagger: 0.16
+      .to('.intro-line-inner', {
+        yPercent: 0, duration: 0.85, ease: 'power3.out', stagger: 0.16
       }, '-=0.35');
   } else if (!reducedMotion) {
     /* GSAP failed to load — still show the dust once scrolled into view */
@@ -205,7 +211,8 @@
 
     /* Each jobs group unfolds when it scrolls into view */
     document.querySelectorAll('.jobs').forEach(function (group) {
-      gsap.from(group.querySelectorAll('.flip-row'), {
+      var groupRows = group.querySelectorAll('.flip-row');
+      gsap.from(groupRows, {
         scrollTrigger: {
           trigger: group,
           start: 'top 75%',
@@ -219,20 +226,26 @@
         duration: 0.9,
         ease: 'power3.out',
         stagger: 0.18,
-        clearProps: 'all'
+        clearProps: 'all',
+        onComplete: function () {
+          /* Entrance finished — tilt may now take over these rows */
+          groupRows.forEach(function (r) { r.dataset.entered = '1'; });
+        }
       });
     });
 
-    /* Cursor tilt — desktop pointers only */
+    /* Cursor tilt — desktop pointers only, never during the entrance */
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       rows.forEach(function (row) {
         var toRx = gsap.quickTo(row, 'rotationX', { duration: 0.45, ease: 'power2.out' });
         var toRy = gsap.quickTo(row, 'rotationY', { duration: 0.45, ease: 'power2.out' });
 
         row.addEventListener('mouseenter', function () {
+          if (!row.dataset.entered) return;
           gsap.set(row, { transformPerspective: 900 });
         });
         row.addEventListener('mousemove', function (e) {
+          if (!row.dataset.entered) return;
           var r = row.getBoundingClientRect();
           var px = (e.clientX - r.left) / r.width - 0.5;
           var py = (e.clientY - r.top) / r.height - 0.5;
@@ -240,6 +253,7 @@
           toRx(py * -5);
         });
         row.addEventListener('mouseleave', function () {
+          if (!row.dataset.entered) return;
           toRx(0);
           toRy(0);
         });
@@ -265,6 +279,15 @@
       });
     });
 
+    /* Hide up front so cards never flash visible before their entrance */
+    gsap.set(skillCards, {
+      rotationY: -40,
+      transformPerspective: 900,
+      transformOrigin: 'left center',
+      autoAlpha: 0,
+      y: 24
+    });
+
     ScrollTrigger.create({
       trigger: '#skills .cards-grid',
       start: 'top 78%',
@@ -273,12 +296,10 @@
         skillCards.forEach(function (card, i) {
           var delay = i * 0.09;
 
-          gsap.from(card, {
-            rotationY: -40,
-            transformPerspective: 900,
-            transformOrigin: 'left center',
-            opacity: 0,
-            y: 24,
+          gsap.to(card, {
+            rotationY: 0,
+            autoAlpha: 1,
+            y: 0,
             duration: 0.7,
             ease: 'power3.out',
             delay: delay,

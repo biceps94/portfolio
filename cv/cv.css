@@ -801,8 +801,9 @@ img, svg { display: block; }
   }
 
   /* Undo animation states — GSAP inline styles included */
-  .reveal, .flip-card, .flip-row, .intro-line-inner {
+  .reveal, .flip-card, .flip-row, .intro-heading, .intro-line-inner {
     opacity: 1 !important;
+    visibility: visible !important;
     transform: none !important;
   }
   svg * {
