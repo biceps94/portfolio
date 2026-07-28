@@ -261,67 +261,65 @@
     }
   }
 
-  /* ── Key Skills: Y-unfold stagger + icon stroke-draw ───────── */
-  var skillCards = document.querySelectorAll('#skills .flip-card');
+  /* ── Panels: staggered rise + icon stroke-draw ─────────────── */
+  var panelGrids = document.querySelectorAll('.skills-grid, .comp-grid, .edu-grid');
 
-  if (window.gsap && window.ScrollTrigger && !reducedMotion && skillCards.length) {
-    /* GSAP owns the entrance — release these cards from the CSS reveal */
-    skillCards.forEach(function (card) { card.classList.remove('reveal'); });
+  if (window.gsap && window.ScrollTrigger && !reducedMotion && panelGrids.length) {
+    panelGrids.forEach(function (grid) {
+      var panels = grid.querySelectorAll('.skill-panel, .comp-panel, .edu-panel');
+      if (!panels.length) return;
 
-    /* Hide icon strokes so they can draw themselves in */
-    skillCards.forEach(function (card) {
-      card.querySelectorAll('.flip-card-front svg *').forEach(function (shape) {
-        try {
-          var len = shape.getTotalLength();
-          shape.style.strokeDasharray = len;
-          shape.style.strokeDashoffset = len;
-        } catch (err) { /* not a geometry element — skip */ }
-      });
-    });
+      /* GSAP owns the entrance — release these panels from the CSS reveal */
+      panels.forEach(function (panel) { panel.classList.remove('reveal'); });
 
-    /* Hide up front so cards never flash visible before their entrance */
-    gsap.set(skillCards, {
-      rotationY: -40,
-      transformPerspective: 900,
-      transformOrigin: 'left center',
-      autoAlpha: 0,
-      y: 24
-    });
-
-    ScrollTrigger.create({
-      trigger: '#skills .cards-grid',
-      start: 'top 78%',
-      once: true,
-      onEnter: function () {
-        skillCards.forEach(function (card, i) {
-          var delay = i * 0.09;
-
-          gsap.to(card, {
-            rotationY: 0,
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            delay: delay,
-            clearProps: 'all'
-          });
-
-          var shapes = card.querySelectorAll('.flip-card-front svg *');
-          gsap.to(shapes, {
-            strokeDashoffset: 0,
-            duration: 0.9,
-            ease: 'power2.inOut',
-            delay: delay + 0.3,
-            stagger: 0.08,
-            onComplete: function () {
-              shapes.forEach(function (shape) {
-                shape.style.strokeDasharray = '';
-                shape.style.strokeDashoffset = '';
-              });
-            }
-          });
+      /* Hide icon strokes so they can draw themselves in */
+      panels.forEach(function (panel) {
+        panel.querySelectorAll('svg *').forEach(function (shape) {
+          try {
+            var len = shape.getTotalLength();
+            shape.style.strokeDasharray = len;
+            shape.style.strokeDashoffset = len;
+          } catch (err) { /* not a geometry element — skip */ }
         });
-      }
+      });
+
+      /* Hide up front so panels never flash visible before their entrance */
+      gsap.set(panels, { autoAlpha: 0, y: 28 });
+
+      ScrollTrigger.create({
+        trigger: grid,
+        start: 'top 80%',
+        once: true,
+        onEnter: function () {
+          panels.forEach(function (panel, i) {
+            var delay = i * 0.09;
+
+            gsap.to(panel, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.65,
+              ease: 'power3.out',
+              delay: delay,
+              clearProps: 'all'
+            });
+
+            var shapes = panel.querySelectorAll('svg *');
+            gsap.to(shapes, {
+              strokeDashoffset: 0,
+              duration: 0.9,
+              ease: 'power2.inOut',
+              delay: delay + 0.25,
+              stagger: 0.08,
+              onComplete: function () {
+                shapes.forEach(function (shape) {
+                  shape.style.strokeDasharray = '';
+                  shape.style.strokeDashoffset = '';
+                });
+              }
+            });
+          });
+        }
+      });
     });
   }
 
