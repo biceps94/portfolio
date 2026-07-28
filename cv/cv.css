@@ -153,20 +153,24 @@ img, svg { display: block; }
 }
 
 .hero-role {
-  font-size: clamp(0.6rem, 1vw, 0.72rem);
+  display: inline-block;
+  font-size: clamp(0.6rem, 1vw, 0.68rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--amber);
+  color: #0A0E15;
+  background: var(--amber);
+  padding: 0.35rem 0.85rem;
+  border-radius: 3px;
   line-height: 1.7;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .hero-name {
   font-family: 'EB Garamond', Georgia, 'Palatino Linotype', serif;
-  font-size: clamp(2rem, 3.8vw, 3.6rem);
+  font-size: clamp(2.6rem, 5.2vw, 5rem);
   font-weight: 400;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
   color: var(--cloud);
   margin-bottom: 2rem;
 }
@@ -226,6 +230,77 @@ img, svg { display: block; }
 @keyframes scroll-tick {
   0%   { top: -100%; }
   100% { top: 200%; }
+}
+
+/* ── Career Stats strip ────────────────────────────────────── */
+#stats {
+  border-bottom: 1px solid var(--ash);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+}
+
+.stat-tile {
+  padding: clamp(1.75rem, 3.5vh, 2.75rem) clamp(1.25rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--surface);
+  border-right: 1px solid var(--ash);
+}
+.stat-tile:last-child { border-right: none; }
+
+.stat-tile--amber {
+  background: var(--amber);
+  border-right-color: rgba(0,0,0,0.12);
+}
+
+.stat-figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  line-height: 1;
+  margin-bottom: 0.65rem;
+}
+
+.stat-number {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--cloud);
+}
+.stat-tile--amber .stat-number { color: #0A0E15; }
+
+.stat-unit {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: clamp(1rem, 1.8vw, 1.55rem);
+  font-weight: 500;
+  color: var(--cloud);
+  letter-spacing: 0.02em;
+}
+.stat-tile--amber .stat-unit { color: #0A0E15; }
+
+.stat-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.stat-tile--amber .stat-label { color: rgba(10,14,21,0.58); }
+
+@media (max-width: 700px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .stat-tile:nth-child(2) { border-right: none; }
+  .stat-tile:nth-child(1),
+  .stat-tile:nth-child(2) { border-bottom: 1px solid var(--ash); }
+  .stat-tile--amber { border-bottom-color: rgba(0,0,0,0.12); }
 }
 
 /* ── Summary ────────────────────────────────────────────────── */
@@ -507,18 +582,17 @@ img, svg { display: block; }
   font-size: 0.82rem;
   color: rgba(234,229,223,0.72);
   line-height: 1.5;
-  padding-left: 0.85rem;
+  padding-left: 1.1rem;
   position: relative;
 }
 .row-points li::before {
-  content: '';
+  content: '★';
   position: absolute;
   left: 0;
-  top: 0.52em;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--amber);
+  top: 0;
+  font-size: 0.58em;
+  color: var(--amber);
+  line-height: 2.5;
 }
 
 /* ── Flip cards ─────────────────────────────────────────────── */
@@ -665,18 +739,17 @@ img, svg { display: block; }
 .flip-card-back li {
   font-size: 0.88rem;
   color: rgba(234,229,223,0.78);
-  padding-left: 0.8rem;
+  padding-left: 1.1rem;
   position: relative;
 }
 .flip-card-back li::before {
-  content: '';
+  content: '★';
   position: absolute;
   left: 0;
-  top: 0.55em;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: var(--amber);
+  top: 0;
+  font-size: 0.58em;
+  color: var(--amber);
+  line-height: 2.7;
 }
 
 .flip-card-back p {
@@ -800,6 +873,9 @@ img, svg { display: block; }
     display: none !important;
   }
 
+  /* Undo reveal hide on stat tiles */
+  .stat-tile { opacity: 1 !important; transform: none !important; }
+
   /* Undo animation states — GSAP inline styles included */
   .reveal, .flip-card, .flip-row, .intro-heading, .intro-line-inner {
     opacity: 1 !important;
@@ -811,6 +887,23 @@ img, svg { display: block; }
     stroke-dashoffset: 0 !important;
   }
 
+  /* Stats strip */
+  #stats { background: #fff !important; }
+  .stats-grid { gap: 0.5rem; grid-template-columns: repeat(4, 1fr); }
+  .stat-tile {
+    background: #f8f8f8 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px;
+    padding: 1rem;
+  }
+  .stat-tile--amber { background: #C4855A !important; }
+  .stat-number { color: #111 !important; font-size: 1.9rem; }
+  .stat-unit { color: #444 !important; font-size: 0.95rem; }
+  .stat-label { color: #666 !important; }
+  .stat-tile--amber .stat-number,
+  .stat-tile--amber .stat-unit,
+  .stat-tile--amber .stat-label { color: #fff !important; }
+
   /* Hero → simple letterhead */
   #hero {
     display: block;
@@ -819,7 +912,7 @@ img, svg { display: block; }
     overflow: visible;
   }
   .hero-content { max-width: none; padding: 0 0 1.25rem; }
-  .hero-role { color: #8a5432; }
+  .hero-role { background: #C4855A !important; color: #fff !important; padding: 0.25rem 0.6rem; }
   .hero-name { color: #111; font-size: 2.3rem; margin-bottom: 0.9rem; }
   .hero-contact { border-color: #ccc; padding-top: 0.9rem; }
   .hero-contact a, .hero-contact span { color: #444; }
