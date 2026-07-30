@@ -202,50 +202,22 @@
     }
   }
 
-  /* ── Work Experience: unfold entrance + cursor tilt ────────── */
+  /* ── Work Experience: cursor tilt ──────────────────────────── */
   var rows = document.querySelectorAll('.flip-row');
 
-  if (window.gsap && window.ScrollTrigger && !reducedMotion && rows.length) {
-    /* GSAP owns the entrance — release these rows from the CSS reveal */
-    rows.forEach(function (row) { row.classList.remove('reveal'); });
+  if (window.gsap && !reducedMotion && rows.length) {
+    /* Tilt is available immediately — no entrance gate needed */
+    rows.forEach(function (row) { row.dataset.entered = '1'; });
 
-    /* Each jobs group unfolds when it scrolls into view */
-    document.querySelectorAll('.jobs').forEach(function (group) {
-      var groupRows = group.querySelectorAll('.flip-row');
-      gsap.from(groupRows, {
-        scrollTrigger: {
-          trigger: group,
-          start: 'top 75%',
-          once: true
-        },
-        rotationX: -55,
-        transformPerspective: 1200,
-        transformOrigin: 'center top',
-        y: 46,
-        opacity: 0,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.18,
-        clearProps: 'all',
-        onComplete: function () {
-          /* Entrance finished — tilt may now take over these rows */
-          groupRows.forEach(function (r) { r.dataset.entered = '1'; });
-        }
-      });
-    });
-
-    /* Cursor tilt — desktop pointers only, never during the entrance */
     if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       rows.forEach(function (row) {
         var toRx = gsap.quickTo(row, 'rotationX', { duration: 0.45, ease: 'power2.out' });
         var toRy = gsap.quickTo(row, 'rotationY', { duration: 0.45, ease: 'power2.out' });
 
         row.addEventListener('mouseenter', function () {
-          if (!row.dataset.entered) return;
           gsap.set(row, { transformPerspective: 900 });
         });
         row.addEventListener('mousemove', function (e) {
-          if (!row.dataset.entered) return;
           var r = row.getBoundingClientRect();
           var px = (e.clientX - r.left) / r.width - 0.5;
           var py = (e.clientY - r.top) / r.height - 0.5;
@@ -253,7 +225,6 @@
           toRx(py * -5);
         });
         row.addEventListener('mouseleave', function () {
-          if (!row.dataset.entered) return;
           toRx(0);
           toRy(0);
         });
@@ -261,67 +232,6 @@
     }
   }
 
-  /* ── Panels: staggered rise + icon stroke-draw ─────────────── */
-  var panelGrids = document.querySelectorAll('.skills-grid, .comp-grid, .edu-grid');
-
-  if (window.gsap && window.ScrollTrigger && !reducedMotion && panelGrids.length) {
-    panelGrids.forEach(function (grid) {
-      var panels = grid.querySelectorAll('.skill-panel, .comp-panel, .edu-panel');
-      if (!panels.length) return;
-
-      /* GSAP owns the entrance — release these panels from the CSS reveal */
-      panels.forEach(function (panel) { panel.classList.remove('reveal'); });
-
-      /* Hide icon strokes so they can draw themselves in */
-      panels.forEach(function (panel) {
-        panel.querySelectorAll('svg *').forEach(function (shape) {
-          try {
-            var len = shape.getTotalLength();
-            shape.style.strokeDasharray = len;
-            shape.style.strokeDashoffset = len;
-          } catch (err) { /* not a geometry element — skip */ }
-        });
-      });
-
-      /* Hide up front so panels never flash visible before their entrance */
-      gsap.set(panels, { autoAlpha: 0, y: 28 });
-
-      ScrollTrigger.create({
-        trigger: grid,
-        start: 'top 80%',
-        once: true,
-        onEnter: function () {
-          panels.forEach(function (panel, i) {
-            var delay = i * 0.09;
-
-            gsap.to(panel, {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.65,
-              ease: 'power3.out',
-              delay: delay,
-              clearProps: 'all'
-            });
-
-            var shapes = panel.querySelectorAll('svg *');
-            gsap.to(shapes, {
-              strokeDashoffset: 0,
-              duration: 0.9,
-              ease: 'power2.inOut',
-              delay: delay + 0.25,
-              stagger: 0.08,
-              onComplete: function () {
-                shapes.forEach(function (shape) {
-                  shape.style.strokeDasharray = '';
-                  shape.style.strokeDashoffset = '';
-                });
-              }
-            });
-          });
-        }
-      });
-    });
-  }
 
   /* ── Reveal on scroll (IntersectionObserver) ───────────────── */
   var revealEls = document.querySelectorAll('.reveal');
