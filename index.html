@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Slobodan Cvjeticanin — Photography</title>
-  <meta name="description" content="Photography by Slobodan Cvjeticanin — Sculptures, Portraits, and Elsewhere.">
+  <meta name="description" content="Photography by Slobodan Cvjeticanin — Sculptures, Portraits, Elsewhere, and Macro.">
   <meta name="theme-color" content="#221d1a">
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -631,13 +631,115 @@
       </div><!-- /sheets -->
     </section>
 
-    <!-- Nature (Series 04) and Abstract (Series 05) were placeholder panels
-         and came out on 2026-07-26 — "we'll add those later". Their empty
-         image folders are still in images/, and the panel markup is the same
-         shape as the three above it, so putting either back is a section and
-         a series number, nothing more. -->
+    <!-- ═══ 05 — MACRO (contact sheet) ═══════════════════════
+         Same shape as the series before it, but one strip only: six
+         frames, all highlights, all hover-swapping the plate behind.
+         The archive row and divider arrive when the series outgrows
+         a single strip — main.js treats both as optional. -->
+    <section id="macro" class="page page-photo" data-label="Macro">
+      <div class="series-mark">
+        <span class="series-num">Series 04</span>
+        <h2 class="series-name">Macro</h2>
+        <p class="series-line">The garden at arm's length, one stem at a time.</p>
+      </div>
 
-    <!-- ═══ 05 — CONTACT ═════════════════════════════════════ -->
+      <figure class="photo-frame">
+        <!-- Plate order must match the row 1 button order below — the script
+             pairs them by position, not by filename. -->
+        <img class="photo-fill photo-fill--cover plate" data-plate data-active
+             data-src="images/macro/mc1-geranium.jpg"
+             alt="A pink geranium leaning into frame on a long stem, soft dark green garden behind it."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/macro/mc2-glory-bower.jpg"
+             alt="A dome of small violet star-shaped flowers glowing against near-dark foliage."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/macro/mc3-trumpet-vine.jpg"
+             alt="A cluster of red trumpet-vine flowers hanging among green leaves in evening shade."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/macro/mc4-marigold-dusk.jpg"
+             alt="An orange marigold holding the last light, the garden behind it already dark."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/macro/mc5-seedling.jpg"
+             alt="A young red-and-green seedling lit low across bare soil."
+             width="2200" height="1467">
+        <img class="photo-fill photo-fill--cover plate" data-plate
+             data-src="images/macro/mc6-celosia-plume.jpg"
+             alt="A red celosia plume rising from red-veined leaves, the ground falling into blue shadow."
+             width="2200" height="1467">
+
+        <div class="photo-scrim photo-scrim--top"></div>
+
+        <figcaption class="photo-exif">
+          <span class="exif-title" data-exif-title>Geranium</span>
+          <span class="exif-data" data-exif-meta>
+            Sony α7 V · FE 70–200mm F4 Macro G OSS II · 200&nbsp;mm ·
+            f/4 · 1/320&nbsp;s · ISO&nbsp;100 · 29 Jul 2026
+          </span>
+        </figcaption>
+      </figure>
+
+      <div class="sheets">
+
+      <!-- One strip — six highlights, in the order they were shot. -->
+      <div class="sheet" role="tablist" aria-label="Macro — contact sheet">
+        <button class="sheet-frame" type="button" role="tab" data-active aria-selected="true"
+                data-title="Geranium"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 200 mm · f/4 · 1/320 s · ISO 100 · 29 Jul 2026"
+                aria-label="Geranium">
+          <img src="images/macro/thumbs/mc1-geranium.jpg" alt="" decoding="async">
+          <span class="sheet-num">01</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Glory Bower"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 131 mm · f/4 · 1/80 s · ISO 200 · 30 Jul 2026"
+                aria-label="Glory Bower">
+          <img src="images/macro/thumbs/mc2-glory-bower.jpg" alt="" decoding="async">
+          <span class="sheet-num">02</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Trumpet Vine"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 100 mm · f/4 · 1/80 s · ISO 250 · 30 Jul 2026"
+                aria-label="Trumpet Vine">
+          <img src="images/macro/thumbs/mc3-trumpet-vine.jpg" alt="" decoding="async">
+          <span class="sheet-num">03</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Marigold, Dusk"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 135 mm · f/4 · 1/200 s · ISO 100 · 31 Jul 2026"
+                aria-label="Marigold, Dusk">
+          <img src="images/macro/thumbs/mc4-marigold-dusk.jpg" alt="" decoding="async">
+          <span class="sheet-num">04</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Seedling, Low Sun"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 138 mm · f/4 · 1/400 s · ISO 200 · 31 Jul 2026"
+                aria-label="Seedling, Low Sun">
+          <img src="images/macro/thumbs/mc5-seedling.jpg" alt="" decoding="async">
+          <span class="sheet-num">05</span>
+        </button>
+        <button class="sheet-frame" type="button" role="tab"
+                data-title="Celosia Plume"
+                data-meta="Sony α7 V · FE 70–200mm F4 Macro G OSS II · 135 mm · f/4 · 1/400 s · ISO 200 · 31 Jul 2026"
+                aria-label="Celosia Plume">
+          <img src="images/macro/thumbs/mc6-celosia-plume.jpg" alt="" decoding="async">
+          <span class="sheet-num">06</span>
+        </button>
+      </div>
+
+      </div><!-- /sheets -->
+    </section>
+
+    <!-- Nature and Abstract were placeholder panels and came out on
+         2026-07-26 — "we'll add those later". Their empty image folders
+         are still in images/, and the panel markup is the same shape as
+         the series above, so putting either back is a section and a
+         series number, nothing more. -->
+
+    <!-- ═══ 06 — CONTACT ═════════════════════════════════════ -->
     <!-- The only panel carrying a photograph AND laid-out text, so it keeps
          the ordinary .page padding and takes the picture as a full-bleed
          layer behind instead of using .page-photo (which zeroes padding).
